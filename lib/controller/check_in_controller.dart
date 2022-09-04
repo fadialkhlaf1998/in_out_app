@@ -14,7 +14,7 @@ class CheckInController extends GetxController{
       loading.value = true;
       var location = await _determinePosition();
       if(location!=null){
-        bool succ = await Api.checkIn(state, "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}");
+        bool succ = await Api.checkIn(state, "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}",DateTime.now());
         if(succ){
           Global.state = state;
           loading.value = false;
@@ -25,6 +25,30 @@ class CheckInController extends GetxController{
         }
       }else{
         loading.value = false;
+      }
+    }else{
+      Get.offAll(()=>Login());
+    }
+  }
+
+  checkInWithDate(int state,DateTime dateTime)async{
+    if(Global.employee !=null){
+      loading.value = true;
+      var location = await _determinePosition();
+      if(location!=null){
+        bool succ = await Api.checkIn(state, "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}",dateTime);
+        if(succ){
+          Global.state = state;
+          loading.value = false;
+          // App.succMsg("Successfully", "Thanks For Using Our Service");
+        }else{
+          loading.value = false;
+          checkInWithDate(state,dateTime);
+          // App.errMsg("Failed", "Oops Please Try Again");
+        }
+      }else{
+        loading.value = false;
+        checkInWithDate(state,dateTime);
       }
     }else{
       Get.offAll(()=>Login());

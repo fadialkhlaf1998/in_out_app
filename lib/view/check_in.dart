@@ -63,7 +63,7 @@ class CheckIn extends StatelessWidget {
           outView(context),
         ],
       );
-    }else if(Global.state == 1){
+    }else if(Global.state == 2){
       return Wrap(
         runAlignment: WrapAlignment.center,
         alignment: WrapAlignment.center,

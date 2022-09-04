@@ -37,7 +37,7 @@ class Api {
     }
   }
 
-  static Future<bool> checkIn(int state,String location)async{
+  static Future<bool> checkIn(int state,String location,DateTime dateTime)async{
     var headers = {
       'Authorization': 'Bearer '+token,
       'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ class Api {
       "employee_id": Global.employee!.id,
       "company_id": Global.employee!.companyId,
       "state": state,
-      "mobile_date_time": DateTime.now().toString(),
+      "mobile_date_time": dateTime.toString(),
       "location": location
     });
     request.headers.addAll(headers);

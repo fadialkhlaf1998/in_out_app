@@ -59,4 +59,14 @@ class Store {
     Global.employee = null;
     return true;
   }
+
+  static bool sameDay(){
+    if(Global.myDate.day == DateTime.now().day &&
+        Global.myDate.month == DateTime.now().month &&
+        Global.myDate.year == DateTime.now().year ) {
+      return true;
+    }else{
+      return false;
+    }
+  }
 }
