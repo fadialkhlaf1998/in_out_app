@@ -29,8 +29,8 @@ class CheckIn extends StatelessWidget {
   }
 
   statesView(BuildContext context){
-    if(Global.state == 3 && Global.myDate.day != DateTime.now().day
-        && Global.myDate.month != DateTime.now().month && Global.myDate.year != DateTime.now().year ){
+    if(Global.state == 3 && (Global.myDate.day != DateTime.now().day
+        || Global.myDate.month != DateTime.now().month || Global.myDate.year != DateTime.now().year) ){
       return Wrap(
         runAlignment: WrapAlignment.center,
         alignment: WrapAlignment.center,

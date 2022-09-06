@@ -1,6 +1,8 @@
+import 'package:get/get.dart';
 import 'package:in_out_app/helper/global.dart';
 import 'package:in_out_app/model/login_info.dart';
 import 'package:in_out_app/model/my_date.dart';
+import 'package:in_out_app/view/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Store {
@@ -57,6 +59,7 @@ class Store {
     Global.myDate = MyDate(-1, -1, -1);
     Global.state = 3;
     Global.employee = null;
+    Get.offAll(()=>Login());
     return true;
   }
 
