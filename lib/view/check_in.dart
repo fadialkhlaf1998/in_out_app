@@ -90,7 +90,7 @@ class CheckIn extends StatelessWidget {
               height: 80,
               decoration: BoxDecoration(
 
-                shape: BoxShape.circle,
+
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(Global.employee!.company_image),
