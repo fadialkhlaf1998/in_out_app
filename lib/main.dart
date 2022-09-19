@@ -6,7 +6,7 @@ import 'package:in_out_app/view/intro.dart';
 void main() {
   runApp(const MyApp());
 }
-
+///for maya
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
