@@ -21,7 +21,7 @@ class LoginController extends GetxController{
       Employee? employee = await Api.login(username.text, password.text);
       loading.value = false;
       if(employee!=null){
-        Get.to(()=>CheckIn());
+        Get.offAll(()=>CheckIn());
         App.succMsg("Login", "Login Has Been Successfully");
       }else{
         App.succMsg("Login", "Oops Wrong Username or Password");

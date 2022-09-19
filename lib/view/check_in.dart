@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:in_out_app/controller/check_in_controller.dart';
 import 'package:in_out_app/helper/app.dart';
@@ -13,67 +12,86 @@ class CheckIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: Text("CheckIn")),
-      body: SafeArea(
-        child: Obx(() => Container(
-            width: MediaQuery.of(context).size.width,
-            child: checkInController.loading.value?Center(
-              child: CircularProgressIndicator(),
-            ): Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/background.jpg"),
-                        fit: BoxFit.cover
-                    )
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _header(context),
-                    Container(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        leading: _logout()
+      ),
+      body: Obx(() => Container(
+          width: MediaQuery.of(context).size.width,
+          child: checkInController.loading.value
+              ?
+          Center(
+            child: CircularProgressIndicator(),
+          ): Center(
+            child: Stack(
+              children: [
+                _header(context),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25),
+                  decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25)
+                        ),
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/background.jpg"),
+                          fit: BoxFit.cover
+                      )
+                  ),
+                  child: Center(
+                    child:  Container(
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: statesView(context),
                     ),
-                    Center(),
-                  ],
-                )
-              ),
-            )
-        ),)
+                  )
+                ),
+              ],
+            ),
+          )
+      ),),
+    );
+  }
+
+  _logout(){
+    return GestureDetector(
+      onTap: (){
+        Store.logout();
+      },
+      child: const Icon(
+          Icons.logout,
+        color: Colors.white,
       ),
     );
   }
+
+
   _header(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 65,
+      height: MediaQuery.of(context).size.height * 0.27,
       decoration: const BoxDecoration(
         color: App.navyBlue,
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(25),
-            bottomRight: Radius.circular(25)
-        ),
+          image: DecorationImage(
+              image: AssetImage("assets/images/background.png"),
+              fit: BoxFit.cover
+          )
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: const Icon(Icons.arrow_back,color: Colors.white,size: 23,),
-            ),
-            const Text("Check In",
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+             Text("Check In",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20
+                  fontSize: 25,
+                fontWeight: FontWeight.bold
               ),
             ),
-            const Icon(Icons.arrow_back,color: Colors.transparent,size: 23,),
           ],
         ),
       )
@@ -245,12 +263,11 @@ class CheckIn extends StatelessWidget {
           checkInController.checkIn(4);
         },
         child: Container(
-          width: 120,
+          width: MediaQuery.of(context).size.width/3,
           height: 40,
           decoration: BoxDecoration(
-            // shape: BoxShape.circle,
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.blue,
+              color: App.primary,
+              borderRadius: BorderRadius.circular(10)
           ),
           child: Center(
             child: Text("OverTime In",style: TextStyle(color: Colors.white)),
@@ -264,12 +281,11 @@ class CheckIn extends StatelessWidget {
           checkInController.checkIn(5);
         },
         child: Container(
-          width: 120,
+          width: MediaQuery.of(context).size.width/3,
           height: 40,
           decoration: BoxDecoration(
-            // shape: BoxShape.circle,
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.blue,
+              color: App.primary,
+              borderRadius: BorderRadius.circular(10)
           ),
           child: Center(
             child: Text("OverTime Out",style: TextStyle(color: Colors.white)),

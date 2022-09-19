@@ -56,19 +56,25 @@ class Store {
     prefs.remove("day");
     prefs.remove("state");
     prefs.remove("loginInfo");
-    Global.myDate = MyDate(-1, -1, -1);
-    Global.state = 3;
+    //Global.myDate = MyDate(-1, -1, -1);
+   // Global.state = 3;
     Global.employee = null;
     Get.offAll(()=>Login());
     return true;
   }
 
-  static bool sameDay(){
-    if(Global.myDate.day == DateTime.now().day &&
-        Global.myDate.month == DateTime.now().month &&
-        Global.myDate.year == DateTime.now().year ) {
+  static bool sameDay() {
+    if (Global.myDate.day == DateTime
+        .now()
+        .day &&
+        Global.myDate.month == DateTime
+            .now()
+            .month &&
+        Global.myDate.year == DateTime
+            .now()
+            .year) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
