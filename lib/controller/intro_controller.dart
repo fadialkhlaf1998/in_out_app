@@ -19,26 +19,30 @@ class IntroController extends GetxController{
     getDate();
   }
   getDate()async{
-
     LoginInfo? loginInfo = await Store.loadLoginInfo();
     await Store.loadDate();
     if(loginInfo !=null){
       Employee? emp = await Api.login(loginInfo.username, loginInfo.password);
       if(emp!=null){
-
         Global.state = await Store.loadState();
         if(!Store.sameDay()&&Global.state!=3){
-          var date =DateTime.now().subtract(Duration(days: 1));
+          var date =DateTime.now().subtract(const Duration(days: 1));
           var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);
-          print(out);
+          // print(out);
           checkInController.checkInWithDate(3, out);
         }
-        Get.off(()=>CheckIn());
+        Future.delayed(const Duration(seconds: 1)).then((value) {
+          Get.off(()=>CheckIn());
+        });
       }else{
-        Get.off(()=>Login());
+        Future.delayed(const Duration(seconds: 1)).then((value) {
+          Get.off(()=>Login());
+        });
       }
     }else{
-      Get.off(()=>Login());
+      Future.delayed(const Duration(seconds: 1)).then((value) {
+        Get.off(()=>Login());
+      });
     }
   }
 }
