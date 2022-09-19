@@ -73,10 +73,10 @@ class CheckIn extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.27,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: App.navyBlue,
           image: DecorationImage(
-              image: NetworkImage(Global.employee!.company_image),
+              image: AssetImage("assets/images/background.png"),
               fit: BoxFit.cover
           )
       ),
@@ -84,14 +84,19 @@ class CheckIn extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-             Text("Check In",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                fontWeight: FontWeight.bold
+          children:  [
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(Global.employee!.company_image),
+                )
               ),
-            ),
+            )
           ],
         ),
       )
