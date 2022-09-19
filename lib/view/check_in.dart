@@ -73,10 +73,10 @@ class CheckIn extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.27,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: App.navyBlue,
           image: DecorationImage(
-              image: AssetImage("assets/images/background.png"),
+              image: NetworkImage(Global.employee!.company_image),
               fit: BoxFit.cover
           )
       ),
