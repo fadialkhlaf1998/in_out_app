@@ -89,7 +89,7 @@ class CheckIn extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: Colors.white,
+
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   fit: BoxFit.cover,
