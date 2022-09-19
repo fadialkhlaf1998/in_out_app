@@ -31,18 +31,12 @@ class IntroController extends GetxController{
           // print(out);
           checkInController.checkInWithDate(3, out);
         }
-        Future.delayed(const Duration(seconds: 1)).then((value) {
-          Get.off(()=>CheckIn());
-        });
+        Get.off(()=>CheckIn());
       }else{
-        Future.delayed(const Duration(seconds: 1)).then((value) {
-          Get.off(()=>Login());
-        });
+        Get.off(()=>Login());
       }
     }else{
-      Future.delayed(const Duration(seconds: 1)).then((value) {
-        Get.off(()=>Login());
-      });
+      Get.off(()=>Login());
     }
   }
 }

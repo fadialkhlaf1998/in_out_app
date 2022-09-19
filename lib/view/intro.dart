@@ -13,15 +13,15 @@ class Intro extends StatelessWidget {
         child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/in_out.jpg"),
-                fit: BoxFit.cover
-              )
-            ),
-            // child: Center(
-            //   child: CircularProgressIndicator(),
-            // )
+            // decoration: const BoxDecoration(
+            //   image: DecorationImage(
+            //     image: AssetImage("assets/images/in_out.jpg"),
+            //     fit: BoxFit.cover
+            //   )
+            // ),
+            child: Center(
+              child: CircularProgressIndicator(),
+            )
         ),
       ),
     );
