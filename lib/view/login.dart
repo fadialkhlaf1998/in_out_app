@@ -25,15 +25,16 @@ class Login extends StatelessWidget {
             const Center(child: CircularProgressIndicator()) :
             Stack(
             children: [
-              _header(context),
               Center(
                 child: Container(
-                  // color: Colors.red,
                   width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        _header(context),
+                        const SizedBox(height: 40),
                         SvgPicture.asset("assets/icons/maxart-logo.svg",
                           color: App.primary,width: 60,height: 60),
                         const SizedBox(height: 20,),
@@ -66,23 +67,31 @@ class Login extends StatelessWidget {
                         const SizedBox(height: 20,),
                         _passTextField(context,loginController.password,"Password"),
                         const SizedBox(height: 40,),
-                        const Text("Copy Right Maxart",style: TextStyle(color: Colors.grey,fontSize: 10),),
-                        const SizedBox(height: 40,),
                         GestureDetector(
                           onTap: (){
-                            App.succMsg("sdfsdf", "sdf");
                             loginController.login();
                           },
                           child: Container(
                             height: 40,
                             width: MediaQuery.of(context).size.width/2,
                             decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: App.navyBlue,
                                 borderRadius: BorderRadius.circular(10)
                             ),
-                            child: Center(
-                              child: Text("Login",style: TextStyle(color: Colors.white),),
+                            child: const Center(
+                              child: Text("Login",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                )
+                              ),
                             ),
+                          ),
+                        ),
+                        const SizedBox(height: 40,),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: const Center(
+                            child: Text("Copy Right Maxart",style: TextStyle(color: App.navyBlue,fontSize: 10),),
                           ),
                         ),
                       ],
@@ -143,7 +152,7 @@ class Login extends StatelessWidget {
           ) :
           OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Colors.red)
+              borderSide: const BorderSide(color: App.navyBlue)
           ),
         ),
       ),
