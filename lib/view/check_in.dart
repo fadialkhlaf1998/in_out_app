@@ -81,7 +81,7 @@ class CheckIn extends StatelessWidget {
   }
 
   statesView(BuildContext context){
-    if(Global.state == 3 && (Global.myDate.day != DateTime.now().day
+    if(Global.state >= 3 && (Global.myDate.day != DateTime.now().day
         || Global.myDate.month != DateTime.now().month || Global.myDate.year != DateTime.now().year) ){
       return Wrap(
         runAlignment: WrapAlignment.center,
@@ -123,6 +123,26 @@ class CheckIn extends StatelessWidget {
         spacing: 10,
         children: [
           outView(context),
+        ],
+      );
+    }else if(Global.state == 3){
+      return Wrap(
+        runAlignment: WrapAlignment.center,
+        alignment: WrapAlignment.center,
+        runSpacing: 10,
+        spacing: 10,
+        children: [
+          overTimeInView(context),
+        ],
+      );
+    }else if(Global.state == 4){
+      return Wrap(
+        runAlignment: WrapAlignment.center,
+        alignment: WrapAlignment.center,
+        runSpacing: 10,
+        spacing: 10,
+        children: [
+          overTimeOutView(context),
         ],
       );
     }else{
@@ -214,6 +234,45 @@ class CheckIn extends StatelessWidget {
           ),
           child: const Center(
             child: Text("Out",style: TextStyle(color: Colors.white)),
+          ),
+        )
+    );
+  }
+
+  overTimeInView(BuildContext context){
+    return GestureDetector(
+        onTap: (){
+          checkInController.checkIn(4);
+        },
+        child: Container(
+          width: 120,
+          height: 40,
+          decoration: BoxDecoration(
+            // shape: BoxShape.circle,
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.blue,
+          ),
+          child: Center(
+            child: Text("OverTime In",style: TextStyle(color: Colors.white)),
+          ),
+        )
+    );
+  }
+  overTimeOutView(BuildContext context){
+    return GestureDetector(
+        onTap: (){
+          checkInController.checkIn(5);
+        },
+        child: Container(
+          width: 120,
+          height: 40,
+          decoration: BoxDecoration(
+            // shape: BoxShape.circle,
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.blue,
+          ),
+          child: Center(
+            child: Text("OverTime Out",style: TextStyle(color: Colors.white)),
           ),
         )
     );

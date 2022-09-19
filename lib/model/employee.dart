@@ -34,6 +34,10 @@ class Employee {
     required this.token,
     required this.in_hour,
     required this.out_hour,
+    required this.time,
+    required this.state,
+    required this.date,
+    required this.company_image,
   });
 
   int id;
@@ -44,6 +48,10 @@ class Employee {
   String token;
   String in_hour;
   String out_hour;
+  String time;
+  String date;
+  int state;
+  String company_image;
 
 
   factory Employee.fromJson(String str) => Employee.fromMap(json.decode(str));
@@ -59,6 +67,10 @@ class Employee {
     token: json["token"],
     in_hour: json["in_hour"],
     out_hour: json["out_hour"],
+    state: json["state"]==null?3:json["state"],
+    company_image: json["company_image"]==null?"":json["company_image"],
+    date:json["date"]==null?"" :json["date"],
+    time:json["time"]==null?"":json["time"],
   );
 
   Map<String, dynamic> toMap() => {

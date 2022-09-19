@@ -24,9 +24,9 @@ class IntroController extends GetxController{
     if(loginInfo !=null){
       Employee? emp = await Api.login(loginInfo.username, loginInfo.password);
       if(emp!=null){
-        Global.state = await Store.loadState();
-        if(!Store.sameDay()&&Global.state!=3){
-          var date =DateTime.now().subtract(const Duration(days: 1));
+        Global.state = emp.state;
+        if(!Store.sameDay()&&Global.state<3&&emp.date.isNotEmpty){
+          var date =DateTime.parse(emp.date);
           var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);
           // print(out);
           checkInController.checkInWithDate(3, out);
