@@ -52,7 +52,13 @@ class CheckIn extends StatelessWidget {
                     child: checkInController.loading.value
                         ?
                     Container(
-                        color: Colors.white.withOpacity(0.3),
+                       // color: Colors.white.withOpacity(0.3),
+                      decoration: BoxDecoration(
+                        color: App.navyBlue,
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/background.png')
+                        )
+                      ),
                         child: const Center(
                           child: CircularProgressIndicator(),
                         )) : Text(''),
@@ -141,13 +147,12 @@ class CheckIn extends StatelessWidget {
         ],
       );
     }else if(Global.state == 1){
-      return Wrap(
-        runAlignment: WrapAlignment.center,
-        alignment: WrapAlignment.center,
-        runSpacing: 10,
-        spacing: 10,
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           breakOutView(context),
+          const SizedBox(height: 40),
           outView(context),
         ],
       );
@@ -181,14 +186,14 @@ class CheckIn extends StatelessWidget {
           overTimeOutView(context),
         ],
       );
-    }else{
+    }else if (Global.state == 5){
       return Wrap(
         runAlignment: WrapAlignment.center,
         alignment: WrapAlignment.center,
         runSpacing: 10,
         spacing: 10,
-        children: [
-          const Text("You Cannot In More Than One Time Ber Day",
+        children: const [
+           Text("You Cannot In More Than One Time Ber Day",
           style: TextStyle(
             color: App.navyBlue
           ),)
@@ -198,32 +203,50 @@ class CheckIn extends StatelessWidget {
   }
 
   inView(BuildContext context){
-    return Bounce(
-      duration: const Duration(milliseconds: 150),
-      onPressed: (){
-        Store.saveDate();
-        checkInController.checkIn(0);
-      },
-        child: Column(
-          children: [
-            const Text("In", style: TextStyle(color: App.navyBlue,fontSize: 16)),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              width: 70,
-              height: 70,
-              decoration: const BoxDecoration(
-                  color: Colors.transparent,
-                image: DecorationImage(
-                  image: AssetImage('assets/icons/play.png')
-                )
-              ),
-              // child: const Center(
-              //   child: Text("In",
-              //       style: TextStyle(color: Colors.white)),
-              // ),
-            ),
-          ],
-        )
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Text(
+            'We wish you a nice day',
+          style: TextStyle(
+            color: App.navyBlue,
+            fontSize: 18,
+            fontWeight: FontWeight.bold
+          ),
+        ),
+        const SizedBox(height: 50,),
+        Bounce(
+          duration: const Duration(milliseconds: 150),
+          onPressed: (){
+            Store.saveDate();
+            checkInController.checkIn(0);
+          },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text("In", style: TextStyle(color: App.navyBlue,fontSize: 16)),
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  width: 70,
+                  height: 70,
+                  decoration: const BoxDecoration(
+                      color: Colors.transparent,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('assets/icons/in.png')
+                    )
+                  ),
+                  // child: const Center(
+                  //   child: Text("In",
+                  //       style: TextStyle(color: Colors.white)),
+                  // ),
+                ),
+              ],
+            )
+        ),
+      ],
     );
   }
 
@@ -243,7 +266,7 @@ class CheckIn extends StatelessWidget {
               decoration: const BoxDecoration(
                   color: Colors.transparent,
                   image: DecorationImage(
-                      image: AssetImage('assets/icons/pause.png')
+                      image: AssetImage('assets/icons/break.png')
                   )
               ),
             ),
@@ -268,7 +291,7 @@ class CheckIn extends StatelessWidget {
               decoration: const BoxDecoration(
                   color: Colors.transparent,
                   image: DecorationImage(
-                      image: AssetImage('assets/icons/forward.png')
+                      image: AssetImage('assets/icons/break-out.png')
                   )
               ),
             ),
@@ -279,7 +302,7 @@ class CheckIn extends StatelessWidget {
 
   outView(BuildContext context){
     return Bounce(
-      duration: Duration(milliseconds: 150),
+      duration: const Duration(milliseconds: 150),
         onPressed: (){
           checkInController.checkIn(3);
         },
@@ -288,12 +311,12 @@ class CheckIn extends StatelessWidget {
             const Text("Out", style: TextStyle(color: App.navyBlue,fontSize: 16)),
             Container(
               margin: const EdgeInsets.only(top: 10),
-              width: 70,
-              height: 70,
+              width: 50,
+              height: 50,
               decoration: const BoxDecoration(
                   color: Colors.transparent,
                   image: DecorationImage(
-                      image: AssetImage('assets/icons/stop.png')
+                      image: AssetImage('assets/icons/logout.png')
                   )
               ),
             ),
@@ -318,7 +341,7 @@ class CheckIn extends StatelessWidget {
               decoration: const BoxDecoration(
                   color: Colors.transparent,
                   image: DecorationImage(
-                      image: AssetImage('assets/icons/upload.png')
+                      image: AssetImage('assets/icons/time-in.png')
                   )
               ),
             ),
@@ -342,7 +365,7 @@ class CheckIn extends StatelessWidget {
               decoration: const BoxDecoration(
                   color: Colors.transparent,
                   image: DecorationImage(
-                      image: AssetImage('assets/icons/download.png')
+                      image: AssetImage('assets/icons/time.png')
                   )
               ),
             ),
