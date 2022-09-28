@@ -35,14 +35,7 @@ class Login extends StatelessWidget {
                           )
                       ),
                     ),
-                    Column(
-                      children: [
-                        const SizedBox(height: 80),
 
-                        // SvgPicture.asset("assets/icons/maxart-logo.svg",
-                        //     color: App.primary,width: 70,height: 70),
-                      ],
-                    )
                   ],
                 ),
                 Positioned(
@@ -54,10 +47,7 @@ class Login extends StatelessWidget {
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50)
                       ),
-                      // image: DecorationImage(
-                      //   image: AssetImage("assets/images/background.jpg"),
-                      //   fit: BoxFit.cover
-                      // )
+
                     ),
                     child: Obx(() => loginController.loading.value ?
                       App.Loading() :
@@ -85,6 +75,7 @@ class Login extends StatelessWidget {
            Column(
              // mainAxisAlignment: MainAxisAlignment.center,
              children: [
+               SizedBox(height: 50,),
                Lottie.asset("assets/Intro.json",width: 170,height: 170),
                SizedBox(height: 50,),
                Text('WELCOME TO',style: TextStyle(
