@@ -38,7 +38,7 @@ class Login extends StatelessWidget {
                     Column(
                       children: [
                         const SizedBox(height: 80),
-                        Lottie.asset("assets/Intro.json",width: 170,height: 170)
+
                         // SvgPicture.asset("assets/icons/maxart-logo.svg",
                         //     color: App.primary,width: 70,height: 70),
                       ],
@@ -49,7 +49,7 @@ class Login extends StatelessWidget {
                   bottom: 0,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height - 170 - 80,
+                    height: MediaQuery.of(context).size.height - 80,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50)
@@ -85,6 +85,7 @@ class Login extends StatelessWidget {
            Column(
              // mainAxisAlignment: MainAxisAlignment.center,
              children: [
+               Lottie.asset("assets/Intro.json",width: 170,height: 170),
                SizedBox(height: 50,),
                Text('WELCOME TO',style: TextStyle(
                  fontSize: 28,
