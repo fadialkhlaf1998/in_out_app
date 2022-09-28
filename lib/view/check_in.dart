@@ -56,6 +56,7 @@ class CheckIn extends StatelessWidget {
                           children: [
                             Container(
                               width: Get.width*0.9,
+                              height: 120,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -75,7 +76,7 @@ class CheckIn extends StatelessWidget {
                             ),
                             Container(
                               width: Get.width,
-                              height: Get.height*0.9-120,
+                              height: Get.height-120-MediaQuery.of(context).padding.top-Get.bottomBarHeight,
                               child: statesView(context),
                             ),
                           ],
