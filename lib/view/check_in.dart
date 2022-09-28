@@ -105,10 +105,37 @@ class CheckIn extends StatelessWidget {
                   )
               ),
             ),
-            Positioned(bottom: 0,child: Container(
-              width: Get.width,
-              height: Get.bottomBarHeight,
-              color: App.smallBtnBG,
+            Positioned(bottom: 0,child: GestureDetector(
+              onTap: (){
+                bottomSheet(context);
+              },
+              onVerticalDragStart: (position){
+                bottomSheet(context);
+              },
+              child: Container(
+                  height: 60,
+                  width: Get.width,
+                  // color: Colors.red,
+                  child: Stack(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset("assets/new_icons/chevron-circle-up-Bold.svg",width: 25,)
+                        ],
+                      ),
+                      Positioned(child: Container(
+                        height: 50,
+                        width: Get.width,
+
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.1),
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
+                        ),
+                      ),bottom: 0,)
+                    ],
+                  )
+              ),
             ))
           ],
         );
@@ -116,38 +143,7 @@ class CheckIn extends StatelessWidget {
     );
   }
   bottomSheetBtn(BuildContext context){
-    return GestureDetector(
-      onTap: (){
-        bottomSheet(context);
-      },
-      onVerticalDragStart: (position){
-        bottomSheet(context);
-      },
-      child: Container(
-        height: 50,
-        width: Get.width,
-        // color: Colors.red,
-        child: Stack(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset("assets/new_icons/chevron-circle-up-Bold.svg",width: 25,)
-              ],
-            ),
-            Positioned(child: Container(
-              height: 40,
-              width: Get.width,
-
-              decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.1),
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
-              ),
-            ),bottom: 0,)
-          ],
-        )
-      ),
-    );
+    return Center();
   }
   late PersistentBottomSheetController _controller;
   bottomSheet(BuildContext context){
