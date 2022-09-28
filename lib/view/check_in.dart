@@ -105,7 +105,7 @@ class CheckIn extends StatelessWidget {
                   )
               ),
             ),
-            Positioned(bottom: 0,child: GestureDetector(
+            Positioned(bottom: 0,child: checkInController.bottomSheetOpened.value?Center():GestureDetector(
               onTap: (){
                 bottomSheet(context);
               },
@@ -242,12 +242,12 @@ class CheckIn extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.arrow_drop_down_circle_outlined,color: Colors.white,)
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Icon(Icons.arrow_drop_down_circle_outlined,color: Colors.white,)
+            //   ],
+            // ),
           ],
         ),
       ),
