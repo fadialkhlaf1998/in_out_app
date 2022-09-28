@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:in_out_app/helper/global.dart';
 import 'package:in_out_app/helper/store.dart';
+import 'package:in_out_app/model/day_person.dart';
 import 'package:in_out_app/model/employee.dart';
 
 class Api {
@@ -64,5 +66,36 @@ class Api {
       return false;
     }
 
+  }
+
+
+  static Future<List<DayPerson>> getAppList()async{
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+token,
+    };
+    var request = http.Request('POST', Uri.parse(url+'/api/check-in/app-list'));
+    request.body = json.encode({
+      "company_id": Global.employee!.companyId,
+      "year": DateTime.now().year,
+      "month": DateTime.now().month,
+      "day": DateTime.now().day
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      String data = (await response.stream.bytesToString());
+      // print(data);
+      DayPersonDecoder dayPersonDecoder = DayPersonDecoder.fromJson(data);
+      return dayPersonDecoder.dayPeople;
+    }
+    else {
+      print(response.reasonPhrase);
+      String data = (await response.stream.bytesToString());
+      log(data);
+      return <DayPerson>[];
+    }
   }
 }

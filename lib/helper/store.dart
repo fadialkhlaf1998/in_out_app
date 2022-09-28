@@ -48,6 +48,7 @@ class Store {
     Global.myDate = MyDate(year, month, day);
     return Global.myDate;
   }
+  
 
   static Future<bool> logout()async{
     var prefs = await SharedPreferences.getInstance();

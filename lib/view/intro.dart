@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:in_out_app/controller/intro_controller.dart';
+import 'package:lottie/lottie.dart';
 
 class Intro extends StatelessWidget {
 
@@ -13,14 +14,14 @@ class Intro extends StatelessWidget {
         child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            // decoration: const BoxDecoration(
-            //   image: DecorationImage(
-            //     image: AssetImage("assets/images/in_out.jpg"),
-            //     fit: BoxFit.cover
-            //   )
-            // ),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/new_icons/background.jpg"),
+                fit: BoxFit.cover
+              ),
+            ),
             child: Center(
-              child: CircularProgressIndicator(),
+              child: Lottie.asset('assets/Intro.json'),
             )
         ),
       ),

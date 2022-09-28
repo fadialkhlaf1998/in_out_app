@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:in_out_app/model/my_date.dart';
+
 class EmployeeDecoder {
   EmployeeDecoder({
     required this.employee,
@@ -53,7 +55,30 @@ class Employee {
   int state;
   String company_image;
 
-
+  DateTime? getLastDateOp(){
+    try {
+      int hour = int.parse(time.split(":")[0]);
+      int min = int.parse(time.split(":")[1]);
+      String data = date.split("T")[0];
+      int year = int.parse(data.split("-")[0]);
+      int month = int.parse(data.split("-")[1]);
+      int day = int.parse(data.split("-")[2]);
+      return DateTime(year,month,day,hour,min);
+    }catch(err){
+      return null;
+    }
+  }
+  MyDate getMyDate(){
+    try {
+      String data = date.split("T")[0];
+      int year = int.parse(data.split("-")[0]);
+      int month = int.parse(data.split("-")[1]);
+      int day = int.parse(data.split("-")[2]);
+      return MyDate(year,month,day);
+    }catch(err){
+      return MyDate(-1, -1, -1);
+    }
+  }
   factory Employee.fromJson(String str) => Employee.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:in_out_app/controller/login_controller.dart';
 import 'package:in_out_app/helper/app.dart';
+import 'package:lottie/lottie.dart';
 
 class Login extends StatelessWidget {
 
@@ -27,18 +28,19 @@ class Login extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       decoration:const  BoxDecoration(
-                        color: App.navyBlue,
+                        color: Colors.white,
                           image: DecorationImage(
-                              image: AssetImage("assets/images/background.png"),
+                              image: AssetImage("assets/new_icons/background.jpg"),
                               fit: BoxFit.cover
                           )
                       ),
                     ),
                     Column(
                       children: [
-                        const SizedBox(height: 70),
-                        SvgPicture.asset("assets/icons/maxart-logo.svg",
-                            color: App.primary,width: 70,height: 70),
+                        const SizedBox(height: 80),
+                        Lottie.asset("assets/Intro.json",width: 170,height: 170)
+                        // SvgPicture.asset("assets/icons/maxart-logo.svg",
+                        //     color: App.primary,width: 70,height: 70),
                       ],
                     )
                   ],
@@ -47,18 +49,18 @@ class Login extends StatelessWidget {
                   bottom: 0,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height * 0.30,
+                    height: MediaQuery.of(context).size.height - 170 - 80,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50)
                       ),
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/background.jpg"),
-                        fit: BoxFit.cover
-                      )
+                      // image: DecorationImage(
+                      //   image: AssetImage("assets/images/background.jpg"),
+                      //   fit: BoxFit.cover
+                      // )
                     ),
                     child: Obx(() => loginController.loading.value ?
-                      const Center(child: CircularProgressIndicator()) :
+                      App.Loading() :
                       _body(context)
                     )
                   ),
@@ -79,35 +81,30 @@ class Login extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-           const SizedBox(height: 20,),
+           // const SizedBox(height: 1,),
            Column(
+             // mainAxisAlignment: MainAxisAlignment.center,
              children: [
-               AnimatedTextKit(
-                 animatedTexts: [
-                   WavyAnimatedText(
-                     'WELCOME TO',
-                     textStyle: const TextStyle(
-                       fontSize: 24,
-                       color: App.navyBlue,
-                       fontWeight: FontWeight.bold,
-                     ),
-                   ),
-                 ],
-               ),
+               SizedBox(height: 50,),
+               Text('WELCOME TO',style: TextStyle(
+                 fontSize: 28,
+                 color: Colors.white,
+                 fontWeight: FontWeight.bold,
+               ),),
                const SizedBox(height: 5),
                const Text("In Out Application",
                  style: TextStyle(
-                     fontSize: 18,
+                     fontSize: 22,
                      color: App.primary,
                      fontWeight: FontWeight.bold),
                ),
-               const SizedBox(height: 15,),
+               const SizedBox(height: 40,),
                const Text("Login to access your account",
                  style: TextStyle(
                      fontSize: 14,
-                     color: App.navyBlue,
+                     color: Colors.white,
                      fontWeight: FontWeight.bold),),
-               const SizedBox(height: 40,),
+               const SizedBox(height: 20,),
                _textField(context, loginController.username, "Username"),
                const SizedBox(height: 10),
                _passTextField(context,loginController.password,"Password"),
@@ -120,7 +117,7 @@ class Login extends StatelessWidget {
                    height: 40,
                    width: MediaQuery.of(context).size.width * 0.4,
                    decoration: BoxDecoration(
-                       color: App.navyBlue,
+                       color: App.smallBtnBG,
                        borderRadius: BorderRadius.circular(10)
                    ),
                    child: const Center(
@@ -143,7 +140,7 @@ class Login extends StatelessWidget {
                 child: Text(
                   "© 2011 - 2021 All Rights Reserved \n Max Art Promotional Gifts Preparing LLC",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: App.navyBlue,fontSize: 10),
+                  style: TextStyle(color: Colors.white,fontSize: 10),
                 ),
               ),
             ),
@@ -158,17 +155,17 @@ class Login extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.8,
       child: TextField(
         controller: controller,
-        style: const TextStyle(color: App.navyBlue),
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           label: Text(hint),
-          labelStyle: const TextStyle(color: App.navyBlue),
+          labelStyle: const TextStyle(color: Colors.white),
           enabledBorder: controller.text.isEmpty && loginController.validate.value ? 
           OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(color: Colors.red)) :
           OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: App.navyBlue)
+              borderSide: const BorderSide(color: Colors.white)
           ),
           focusedBorder: controller.text.isEmpty && loginController.validate.value ?
           OutlineInputBorder(
@@ -177,7 +174,7 @@ class Login extends StatelessWidget {
           ) :
           OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: App.navyBlue)
+              borderSide: const BorderSide(color: Colors.white)
           ),
         ),
       ),
@@ -189,18 +186,18 @@ class Login extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.8,
       child: TextField(
         controller: controller,
-        style: const TextStyle(color: App.navyBlue),
+        style: const TextStyle(color: Colors.white),
         obscureText: loginController.showPassword.value,
         decoration: InputDecoration(
           label: Text(hint),
-          labelStyle: const TextStyle(color: App.navyBlue),
+          labelStyle: const TextStyle(color: Colors.white),
           enabledBorder: controller.text.isEmpty && loginController.validate.value ?
           OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(color: Colors.red)) :
           OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: App.navyBlue)
+              borderSide: const BorderSide(color: Colors.white)
           ),
           focusedBorder: controller.text.isEmpty && loginController.validate.value ?
           OutlineInputBorder(
@@ -208,7 +205,7 @@ class Login extends StatelessWidget {
               borderSide: const BorderSide(color: Colors.red)) :
           OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: App.navyBlue)
+              borderSide: const BorderSide(color: Colors.white)
           ),
           suffixIcon: GestureDetector(
             onTap: (){
