@@ -29,79 +29,77 @@ class CheckIn extends StatelessWidget {
       extendBodyBehindAppBar: true,
       backgroundColor: App.navyBlue,
       body: Obx((){
-        return SafeArea(
-          child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: Stack(
-                  children: [
-                    checkInController.fake.value?Center():Center(),
-                    Container(
+        return Container(
+            width: MediaQuery.of(context).size.width,
+            child: Center(
+              child: Stack(
+                children: [
+                  checkInController.fake.value?Center():Center(),
+                  Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/new_icons/background.jpg")
+                      )
+                    ),
+                    child: Container(
+                      width: Get.width,
+                      height: Get.height,
                       decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/new_icons/background.jpg")
-                        )
+                          image: DecorationImage(
+                              image: AssetImage("assets/new_icons/background.jpg"),
+                              fit: BoxFit.cover
+                          )
                       ),
-                      child: Container(
-                        width: Get.width,
-                        height: Get.height,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage("assets/new_icons/background.jpg"),
-                                fit: BoxFit.cover
-                            )
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: Get.width*0.9,
-                              height: 120,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: Get.width*0.9,
+                            height: 120,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
 
-                                  _logout(Colors.transparent),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width*0.5,
-                                    height: 120,
-                                    child: Center(
-                                        child: SvgPicture.network(Global.employee!.company_image),
-                                    ),
+                                _logout(Colors.transparent),
+                                Container(
+                                  width: MediaQuery.of(context).size.width*0.5,
+                                  height: 120,
+                                  child: Center(
+                                      child: SvgPicture.network(Global.employee!.company_image),
                                   ),
-                                  _logout(Colors.white),
+                                ),
+                                _logout(Colors.white),
 
-                                ],
-                              ),
+                              ],
                             ),
-                            Container(
-                              width: Get.width,
-                              height: Get.height-120-MediaQuery.of(context).padding.top-Get.bottomBarHeight,
-                              child: statesView(context),
-                            ),
-                          ],
-                        ),
+                          ),
+                          Container(
+                            width: Get.width,
+                            height: Get.height-120-MediaQuery.of(context).padding.top-Get.bottomBarHeight,
+                            child: statesView(context),
+                          ),
+                        ],
                       ),
                     ),
-                    checkInController.bottomSheetOpened.value?Center():Positioned(child:  bottomSheetBtn(context),bottom: 0,),
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      child: checkInController.loading.value
-                          ?
-                      Container(
-                         // color: Colors.white.withOpacity(0.3),
-                        decoration: BoxDecoration(
-                          color: App.navyBlue,
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/background.png')
-                          )
-                        ),
-                          child: App.Loading()) : Text(''),
-                    )
-                  ],
-                ),
-              )
-          ),
+                  ),
+                  checkInController.bottomSheetOpened.value?Center():Positioned(child:  bottomSheetBtn(context),bottom: 0,),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    child: checkInController.loading.value
+                        ?
+                    Container(
+                       // color: Colors.white.withOpacity(0.3),
+                      decoration: BoxDecoration(
+                        color: App.navyBlue,
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/background.png')
+                        )
+                      ),
+                        child: App.Loading()) : Text(''),
+                  )
+                ],
+              ),
+            )
         );
       }),
     );
@@ -115,7 +113,7 @@ class CheckIn extends StatelessWidget {
         bottomSheet(context);
       },
       child: Container(
-        height: 50,
+        height: 100,
         width: Get.width,
         // color: Colors.red,
         child: Stack(
