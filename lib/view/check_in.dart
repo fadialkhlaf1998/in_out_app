@@ -29,115 +29,123 @@ class CheckIn extends StatelessWidget {
       extendBodyBehindAppBar: true,
       backgroundColor: App.navyBlue,
       body: Obx((){
-        return Stack(
-          children: [
-            SafeArea(
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                    child: Stack(
-                      children: [
-                        checkInController.fake.value?Center():Center(),
-                        Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/new_icons/background.jpg")
-                            )
-                          ),
-                          child: Container(
-                            width: Get.width,
-                            height: Get.height,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage("assets/new_icons/background.jpg"),
-                                    fit: BoxFit.cover
-                                )
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: Get.width*0.9,
-                                  height: 120,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-
-                                      _logout(Colors.transparent),
-                                      Container(
-                                        width: MediaQuery.of(context).size.width*0.5,
-                                        height: 120,
-                                        child: Center(
-                                            child: SvgPicture.network(Global.employee!.company_image),
-                                        ),
-                                      ),
-                                      _logout(Colors.white),
-
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: Get.width,
-                                  height: Get.height-120-MediaQuery.of(context).padding.top-Get.bottomBarHeight,
-                                  child: statesView(context),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        checkInController.bottomSheetOpened.value?Center():Positioned(child:  bottomSheetBtn(context),bottom: 0,),
-                        AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 300),
-                          child: checkInController.loading.value
-                              ?
-                          Container(
-                             // color: Colors.white.withOpacity(0.3),
-                            decoration: BoxDecoration(
-                              color: App.navyBlue,
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/background.png')
-                              )
-                            ),
-                              child: App.Loading()) : Text(''),
-                        )
-                      ],
-                    ),
-                  )
-              ),
-            ),
-            Positioned(bottom: 0,child: checkInController.bottomSheetOpened.value?Center():GestureDetector(
-              onTap: (){
-                bottomSheet(context);
-              },
-              onVerticalDragStart: (position){
-                bottomSheet(context);
-              },
-              child: Container(
-                  height: 60,
-                  width: Get.width,
-                  // color: Colors.red,
-                  child: Stack(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+        return Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/new_icons/background.jpg"),
+                  fit: BoxFit.cover
+              )
+          ),
+          child: Stack(
+            children: [
+              SafeArea(
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: Stack(
                         children: [
-                          SvgPicture.asset("assets/new_icons/chevron-circle-up-Bold.svg",width: 25,)
+                          checkInController.fake.value?Center():Center(),
+                          Container(
+                            // decoration: BoxDecoration(
+                            //   image: DecorationImage(
+                            //     image: AssetImage("assets/new_icons/background.jpg")
+                            //   )
+                            // ),
+                            child: Container(
+                              width: Get.width,
+                              height: Get.height,
+                              // decoration: BoxDecoration(
+                              //     image: DecorationImage(
+                              //         image: AssetImage("assets/new_icons/background.jpg"),
+                              //         fit: BoxFit.cover
+                              //     )
+                              // ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: Get.width*0.9,
+                                    height: 120,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+
+                                        _logout(Colors.transparent),
+                                        Container(
+                                          width: MediaQuery.of(context).size.width*0.5,
+                                          height: 120,
+                                          child: Center(
+                                              child: SvgPicture.network(Global.employee!.company_image),
+                                          ),
+                                        ),
+                                        _logout(Colors.white),
+
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: Get.width,
+                                    height: Get.height-120-MediaQuery.of(context).padding.top-Get.bottomBarHeight,
+                                    child: statesView(context),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          checkInController.bottomSheetOpened.value?Center():Positioned(child:  bottomSheetBtn(context),bottom: 0,),
+                          AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 300),
+                            child: checkInController.loading.value
+                                ?
+                            Container(
+                               // color: Colors.white.withOpacity(0.3),
+                              decoration: BoxDecoration(
+                                color: App.navyBlue,
+                                image: DecorationImage(
+                                  image: AssetImage('assets/images/background.png')
+                                )
+                              ),
+                                child: App.Loading()) : Text(''),
+                          )
                         ],
                       ),
-                      Positioned(child: Container(
-                        height: 50,
-                        width: Get.width,
-
-                        decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.1),
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
-                        ),
-                      ),bottom: 0,)
-                    ],
-                  )
+                    )
+                ),
               ),
-            ))
-          ],
+              Positioned(bottom: 0,child: checkInController.bottomSheetOpened.value?Center():GestureDetector(
+                onTap: (){
+                  bottomSheet(context);
+                },
+                onVerticalDragStart: (position){
+                  bottomSheet(context);
+                },
+                child: Container(
+                    height: 60,
+                    width: Get.width,
+                    // color: Colors.red,
+                    child: Stack(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset("assets/new_icons/chevron-circle-up-Bold.svg",width: 25,)
+                          ],
+                        ),
+                        Positioned(child: Container(
+                          height: 50,
+                          width: Get.width,
+
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.1),
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
+                          ),
+                        ),bottom: 0,)
+                      ],
+                    )
+                ),
+              ))
+            ],
+          ),
         );
       }),
     );
