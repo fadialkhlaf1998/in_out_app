@@ -27,7 +27,7 @@ class CheckIn extends StatelessWidget {
     return Scaffold(
 
       extendBodyBehindAppBar: true,
-
+      backgroundColor: App.navyBlue,
       body: Obx((){
         return SafeArea(
           child: Container(

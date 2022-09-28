@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:in_out_app/controller/intro_controller.dart';
+import 'package:in_out_app/helper/app.dart';
 import 'package:lottie/lottie.dart';
 
 class Intro extends StatelessWidget {
@@ -15,6 +16,7 @@ class Intro extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return Scaffold(
+      backgroundColor: App.navyBlue,
       body: SafeArea(
         child: Container(
             width: MediaQuery.of(context).size.width,
