@@ -102,7 +102,7 @@ class CheckIn extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: App.navyBlue,
                                 image: DecorationImage(
-                                  image: AssetImage('assets/images/background.png')
+                                  image: AssetImage('assets/new_icons/background.jpg')
                                 )
                               ),
                                 child: App.Loading()) : Text(''),
@@ -120,7 +120,7 @@ class CheckIn extends StatelessWidget {
                   bottomSheet(context);
                 },
                 child: Container(
-                    height: 60,
+                    height: 70,
                     width: Get.width,
                     // color: Colors.red,
                     child: Stack(
@@ -128,11 +128,11 @@ class CheckIn extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SvgPicture.asset("assets/new_icons/chevron-circle-up-Bold.svg",width: 25,)
+                            SvgPicture.asset("assets/new_icons/chevron-circle-up-Bold.svg",width: 30,)
                           ],
                         ),
                         Positioned(child: Container(
-                          height: 50,
+                          height: 55,
                           width: Get.width,
 
                           decoration: BoxDecoration(
