@@ -9,6 +9,7 @@ import 'package:in_out_app/view/login.dart';
 
 class CheckInController extends GetxController{
   var loading = false.obs;
+  var afterLoading = false.obs;
   var fake = false.obs;
   var bottomSheetOpened = false.obs;
 
@@ -35,8 +36,11 @@ class CheckInController extends GetxController{
         if(succ){
           Global.state = state;
           Global.myDate = Global.employee!.getMyDate();
+          afterLoading.value = true;
           loading.value = false;
           App.succMsg("Successfully", "Thanks For Using Our Service");
+          await Future.delayed(Duration(milliseconds: 950));
+          afterLoading.value = false;
         }else{
           loading.value = false;
           App.errMsg("Failed", "Oops Please Try Again");

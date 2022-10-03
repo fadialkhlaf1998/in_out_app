@@ -28,8 +28,14 @@ class App{
   }
   
   static Loading(){
+    return Center(child: CircularProgressIndicator(),);
     return Center(
       child: Lottie.asset("assets/Loading.json",width: 100,height: 100),
+    );
+  }
+  static tick(){
+    return Center(
+      child: Lottie.asset("assets/Tick.json",width: 100,height: 100,),
     );
   }
 }

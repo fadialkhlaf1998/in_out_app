@@ -84,8 +84,18 @@ class CheckIn extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
+                                    height: 30,
+                                    // color: Colors.red,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(DateTime.now().year.toString()+"-"+DateTime.now().month.toString()+"-"+DateTime.now().day.toString(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
                                     width: Get.width,
-                                    height: Get.height-120-MediaQuery.of(context).padding.top-Get.bottomBarHeight,
+                                    height: Get.height-120-30-MediaQuery.of(context).padding.top-Get.bottomBarHeight,
                                     child: statesView(context),
                                   ),
                                 ],
@@ -95,17 +105,18 @@ class CheckIn extends StatelessWidget {
                           checkInController.bottomSheetOpened.value?Center():Positioned(child:  bottomSheetBtn(context),bottom: 0,),
                           AnimatedSwitcher(
                             duration: const Duration(milliseconds: 300),
-                            child: checkInController.loading.value
+                            child: checkInController.loading.value||checkInController.afterLoading.value
                                 ?
                             Container(
                                // color: Colors.white.withOpacity(0.3),
                               decoration: BoxDecoration(
                                 color: App.navyBlue,
                                 image: DecorationImage(
-                                  image: AssetImage('assets/new_icons/background.jpg')
+                                  image: AssetImage('assets/new_icons/background.jpg'),
+                                  fit: BoxFit.cover
                                 )
                               ),
-                                child: App.Loading()) : Text(''),
+                                child: checkInController.afterLoading.value?App.tick():App.Loading()) : Text(''),
                           )
                         ],
                       ),
@@ -297,20 +308,9 @@ class CheckIn extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          bigBtn("assets/new_icons/check_in.svg","Check-In",Colors.green,0),
-          SizedBox(height: 20,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(width: 10,),
-              SizedBox(width: 10,),
-              smallBtn("assets/new_icons/break_in.svg","Break-In",Colors.white,1),
-              smallBtn("assets/new_icons/check_out.svg","Check-Out",Colors.white,3),
-              SizedBox(width: 10,),
-              SizedBox(width: 10,),
-            ],
-          )
-
+          bigBtn("assets/new_icons/break_in.svg","Break-In",Colors.white,1),
+          SizedBox(height: 30,),
+          bigBtn("assets/new_icons/check_out.svg","Check-Out",Colors.white,3),
         ],
       );
     }else if(Global.state == 1){
@@ -320,7 +320,7 @@ class CheckIn extends StatelessWidget {
         children: [
           bigBtnPercentBar("assets/new_icons/break_in.svg","Break-In",Colors.green,0,Duration(milliseconds: 1800)),
           SizedBox(height: 20,),
-          smallBtn("assets/new_icons/break_out.svg","Break-Out",Colors.white,2),
+          bigBtn("assets/new_icons/break_out.svg","Break-Out",Colors.white,2),
         ],
       );
     }else if(Global.state == 2){
@@ -334,12 +334,23 @@ class CheckIn extends StatelessWidget {
         ],
       );
     }else if(Global.state == 3){
-      return Wrap(
-        runAlignment: WrapAlignment.center,
-        alignment: WrapAlignment.center,
-        runSpacing: 10,
-        spacing: 10,
+      return Column(
+        // runAlignment: WrapAlignment.center,
+        // alignment: WrapAlignment.center,
+        // runSpacing: 10,
+        // spacing: 10,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Container(
+            width: Get.width * 0.9,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Thank you for working today. Would you like to work extra hours?",style: TextStyle(color: Colors.white,fontSize: 16,),textAlign: TextAlign.center,),
+              ],
+            ),
+          ),
+          SizedBox(height: 20,),
           bigBtnOverTimeIn("assets/new_icons/over_in.svg","Extra Overtime - IN",Colors.white,4),
         ],
       );
@@ -352,22 +363,21 @@ class CheckIn extends StatelessWidget {
         children: [
           Column(
             children: [
-              bigBtnOverTimeIn("assets/new_icons/over_in.svg","Extra Overtime - IN",Colors.green,4),
-              SizedBox(height: 20,),
-              smallBtnOver("assets/new_icons/over_out.svg", "Extra Overtime - Out", Colors.white, 5)
+             // bigBtnOverTimeIn("assets/new_icons/over_in.svg","Extra Overtime - IN",Colors.green,4),
+             // SizedBox(height: 20,),
+              bigBtnOverTimeOut("assets/new_icons/over_out.svg", "Extra Overtime - Out", Colors.white, 5)
             ],
           )
           
         ],
       );
     }else if (Global.state == 5){
-      return Wrap(
-        runAlignment: WrapAlignment.center,
-        alignment: WrapAlignment.center,
-        runSpacing: 10,
-        spacing: 10,
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           bigBtnOverTimeOut("assets/new_icons/over_out.svg","Extra Overtime - Out",Colors.red,4),
+          SizedBox(height: 30,),
+          Text("Thank You, See You Tomorrow",style: TextStyle(color: Colors.white,fontSize: 16),)
         ],
       );
     }
@@ -386,12 +396,13 @@ class CheckIn extends StatelessWidget {
       duration: Duration(milliseconds: 150),
       child: Column(
         children: [
-          Container(
+          AnimatedContainer(
+            duration: Duration(milliseconds: 1000),
             margin: EdgeInsets.only(top: 10),
-            width: 150,
-            height: 150,
+            width: checkInController.fake.value ?150:130,
+            height: checkInController.fake.value ?150:130,
             decoration: BoxDecoration(
-              color: color.withOpacity(0.3),
+              color: checkInController.fake.value ?color.withOpacity(0.3):color.withOpacity(0.3),
               shape: BoxShape.circle,
               border: Border.all(width: 2,color: color),
             ),
@@ -417,20 +428,29 @@ class CheckIn extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 10),
             width: 150,
             height: 150,
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.3),
-              shape: BoxShape.circle,
-              border: Border.all(width: 2,color: color),
-            ),
+
             child: Stack(
               children: [
+
+            Center(
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 1000),
+                // margin: EdgeInsets.only(top: 10),
+                width: checkInController.fake.value ?150:130,
+                height: checkInController.fake.value ?150:130,
+                decoration: BoxDecoration(
+                  color: checkInController.fake.value ?color.withOpacity(0.3):color.withOpacity(0.3),
+                  shape: BoxShape.circle,
+                  border: Border.all(width: 2,color: color),
+                ),),
+            ),
                 Positioned(
                   top: 44,
                   left: 29,
                   child: SvgPicture.asset(image,width: 75,color: color,),),
+
               ],
             ),
           ),
@@ -442,6 +462,50 @@ class CheckIn extends StatelessWidget {
 
   }
   bigBtnOverTimeOut(String image,String title,Color color,int state){
+    return Bounce(
+      onPressed: (){
+        if(color == Colors.white){
+          checkInController.checkIn(state);
+        }
+      },
+      duration: Duration(milliseconds: 150),
+      child: Column(
+        children: [
+          Container(
+            width: 150,
+            height: 150,
+
+            child: Stack(
+              children: [
+
+                Center(
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 1000),
+                    // margin: EdgeInsets.only(top: 10),
+                    width: checkInController.fake.value ?150:130,
+                    height: checkInController.fake.value ?150:130,
+                    decoration: BoxDecoration(
+                      color: checkInController.fake.value ?color.withOpacity(0.3):color.withOpacity(0.3),
+                      shape: BoxShape.circle,
+                      border: Border.all(width: 2,color: color),
+                    ),),
+                ),
+                Positioned(
+                  top: 44,
+                  right: 29,
+                  child: SvgPicture.asset(image,width: 75,color: color,),),
+
+              ],
+            ),
+          ),
+          SizedBox(height: 20,),
+          Text(title, style: TextStyle(color: color,fontSize: 18)),
+        ],
+      ),
+    );
+
+  }
+  bigBtnOverTimeOutArchive(String image,String title,Color color,int state){
     return Bounce(
       onPressed: (){
         if(color == Colors.white){
