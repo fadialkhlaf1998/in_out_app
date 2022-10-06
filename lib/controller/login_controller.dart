@@ -24,7 +24,7 @@ class LoginController extends GetxController{
         Get.offAll(()=>CheckIn());
         App.succMsg("Login", "Login Has Been Successfully");
       }else{
-        App.succMsg("Login", "Oops Wrong Username or Password");
+        App.errMsg("Login", "Oops Wrong Username or Password");
       }
     }
   }

@@ -375,9 +375,12 @@ class CheckIn extends StatelessWidget {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          bigBtnOverTimeOut("assets/new_icons/over_out.svg","Extra Overtime - Out",Colors.red,4),
+          // bigBtnOverTimeOut("assets/new_icons/over_out.svg","Extra Overtime - Out",Colors.red,4),
+          SvgPicture.asset("assets/new_icons/smile.svg",width: 150,color: Colors.white,),
           SizedBox(height: 30,),
-          Text("Thank You, See You Tomorrow",style: TextStyle(color: Colors.white,fontSize: 16),)
+          Text("Thank You, See You Tomorrow",style: TextStyle(color: Colors.white,fontSize: 16),),
+          SizedBox(height: 30,),
+          // SizedBox(height: 30,),
         ],
       );
     }
