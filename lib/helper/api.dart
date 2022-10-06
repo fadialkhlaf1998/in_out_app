@@ -30,6 +30,8 @@ class Api {
       EmployeeDecoder temp = EmployeeDecoder.fromJson(jsonData);
       token = temp.employee.token;
       Global.employee = temp.employee;
+      Global.myDate = temp.employee.getMyDate();
+      Global.state = temp.employee.state;
       Store.saveLoginInfo(username, password);
       return temp.employee;
     }

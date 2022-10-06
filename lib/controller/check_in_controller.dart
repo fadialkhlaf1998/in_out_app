@@ -38,7 +38,7 @@ class CheckInController extends GetxController{
           Global.myDate = Global.employee!.getMyDate();
           afterLoading.value = true;
           loading.value = false;
-          App.succMsg("Successfully", "Thanks For Using Our Service");
+          //App.succMsg("Successfully", "Thanks For Using Our Service");
           await Future.delayed(Duration(milliseconds: 950));
           afterLoading.value = false;
         }else{
@@ -53,7 +53,7 @@ class CheckInController extends GetxController{
     }
   }
 
-  checkInWithDate(int state,DateTime dateTime)async{
+  Future<bool> checkInWithDate(int state,DateTime dateTime)async{
     if(Global.employee !=null){
       loading.value = true;
       var location = await _determinePosition();
@@ -63,17 +63,19 @@ class CheckInController extends GetxController{
           Global.state = state;
           loading.value = false;
           // App.succMsg("Successfully", "Thanks For Using Our Service");
+          return true;
         }else{
           loading.value = false;
-          checkInWithDate(state,dateTime);
+          return await checkInWithDate(state,dateTime);
           // App.errMsg("Failed", "Oops Please Try Again");
         }
       }else{
         loading.value = false;
-        checkInWithDate(state,dateTime);
+        return await checkInWithDate(state,dateTime);
       }
     }else{
       Get.offAll(()=>Login());
+      return false;
     }
   }
 

@@ -26,17 +26,18 @@ class IntroController extends GetxController{
       Employee? emp = await Api.login(loginInfo.username, loginInfo.password);
 
       if(emp!=null){
-        Global.myDate = emp.getMyDate();
-        Global.state = emp.state;
-        print(Global.state);
-        print("Global.state");
-        print(emp.date);
+        // Global.myDate = emp.getMyDate();
+        // Global.state = emp.state;
+        // print(Global.state);
+        // print("Global.state");
+        // print(emp.date);
         print(Store.sameDay());
         if(!Store.sameDay()&&Global.state<3&&emp.date.isNotEmpty){
           var date =DateTime.parse(emp.date);
           var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);
-          checkInController.checkInWithDate(3, out);
+          await checkInController.checkInWithDate(3, out);
         }
+        print('----------HERE----------');
         Get.off(()=>CheckIn());
       }else{
         Get.off(()=>Login());

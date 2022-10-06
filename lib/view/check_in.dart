@@ -53,7 +53,7 @@ class CheckIn extends StatelessWidget {
                             // ),
                             child: Container(
                               width: Get.width,
-                              height: Get.height,
+                              height: Get.height-Get.bottomBarHeight  - Get.statusBarHeight-20,
                               // decoration: BoxDecoration(
                               //     image: DecorationImage(
                               //         image: AssetImage("assets/new_icons/background.jpg"),
@@ -62,40 +62,54 @@ class CheckIn extends StatelessWidget {
                               // ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                     width: Get.width*0.9,
-                                    height: 120,
+                                    // height: 60,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
 
-                                        _logout(Colors.transparent),
+                                        // _logout(Colors.transparent),
                                         Container(
                                           width: MediaQuery.of(context).size.width*0.5,
-                                          height: 120,
+                                          height: 60,
                                           child: Center(
                                               child: SvgPicture.network(Global.employee!.company_image),
                                           ),
                                         ),
-                                        _logout(Colors.white),
+                                        // _logout(Colors.transparent),
 
                                       ],
                                     ),
                                   ),
+
+                                  // SizedBox(height: 10,),
                                   Container(
-                                    height: 30,
+                                    // height: 30,
                                     // color: Colors.red,
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text(DateTime.now().year.toString()+"-"+DateTime.now().month.toString()+"-"+DateTime.now().day.toString(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                                        Text("Welcom",style: TextStyle(color: App.primary,fontSize: 30,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                                      ],
+                                    ),
+                                  ),
+                                  // SizedBox(height: 10,),
+                                  Container(
+                                    // height: 30,
+                                    // color: Colors.red,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("Date: "+DateTime.now().day.toString()+"-"+DateTime.now().month.toString()+"-"+DateTime.now().year.toString(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                                       ],
                                     ),
                                   ),
                                   Container(
                                     width: Get.width,
-                                    height: Get.height-120-30-MediaQuery.of(context).padding.top-Get.bottomBarHeight,
+                                    // height: Get.height-120-30-10-30-MediaQuery.of(context).padding.top-Get.bottomBarHeight,
                                     child: statesView(context),
                                   ),
                                 ],
@@ -123,7 +137,9 @@ class CheckIn extends StatelessWidget {
                     )
                 ),
               ),
-              Positioned(bottom: 0,child: checkInController.bottomSheetOpened.value?Center():GestureDetector(
+              Positioned(bottom: 0,child: checkInController.bottomSheetOpened.value?Center():
+
+              GestureDetector(
                 onTap: (){
                   bottomSheet(context);
                 },
@@ -131,7 +147,7 @@ class CheckIn extends StatelessWidget {
                   bottomSheet(context);
                 },
                 child: Container(
-                    height: 70,
+                    height: 87,
                     width: Get.width,
                     // color: Colors.red,
                     child: Stack(
@@ -139,16 +155,28 @@ class CheckIn extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SvgPicture.asset("assets/new_icons/chevron-circle-up-Bold.svg",width: 30,)
+                            SvgPicture.asset("assets/new_icons/chevron-circle-up-Bold.svg",width: 40,)
                           ],
                         ),
                         Positioned(child: Container(
-                          height: 55,
+                          height: 70,
                           width: Get.width,
 
                           decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.1),
                               borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
+                          ),
+                          child: Center(
+                            child: Container(
+                              width: Get.width*0.9,
+                              height: 30,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  _logout(Colors.white),
+                                ],
+                              ),
+                            ),
                           ),
                         ),bottom: 0,)
                       ],
@@ -281,10 +309,16 @@ class CheckIn extends StatelessWidget {
       onTap: (){
         Store.logout();
       },
-      child: Icon(
-          Icons.logout,
-        color: color,
-      ),
+      child: Row(
+        children: [
+          Text("Logout",style: TextStyle(color: color,fontSize: 16),),
+          SizedBox(width: 10,),
+          Icon(
+            Icons.logout,
+            color: color,
+          ),
+        ],
+      )
     );
   }
 
@@ -346,7 +380,11 @@ class CheckIn extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Thank you for working today. Would you like to work extra hours?",style: TextStyle(color: Colors.white,fontSize: 16,),textAlign: TextAlign.center,),
+                SvgPicture.asset("assets/new_icons/smile.svg",width: 150,color: Colors.white,),
+                SizedBox(height: 20,),
+                Text("Thank you for working today.",style: TextStyle(color: App.primary,fontSize: 18,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                SizedBox(height: 10,),
+                Text("If the manager asks you to work overtime after working hours , press Extra Overtime - IN",style: TextStyle(color: Colors.white,fontSize: 16,),textAlign: TextAlign.center,),
               ],
             ),
           ),
