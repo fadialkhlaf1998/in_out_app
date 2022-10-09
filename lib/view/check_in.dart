@@ -45,7 +45,13 @@ class CheckIn extends StatelessWidget {
                       child: Stack(
                         children: [
                           checkInController.fake.value?Center():Center(),
-                          Container(
+                          checkInController.bottomSheetOpened.value?Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 120,
+                            child: Center(
+                              child: SvgPicture.network(Global.employee!.company_image,),
+                            ),
+                          ):Container(
                             // decoration: BoxDecoration(
                             //   image: DecorationImage(
                             //     image: AssetImage("assets/new_icons/background.jpg")
