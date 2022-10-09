@@ -45,13 +45,15 @@ class CheckIn extends StatelessWidget {
                       child: Stack(
                         children: [
                           checkInController.fake.value?Center():Center(),
-                          checkInController.bottomSheetOpened.value?Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 120,
-                            child: Center(
-                              child: SvgPicture.network(Global.employee!.company_image,),
-                            ),
-                          ):Container(
+                          // checkInController.bottomSheetOpened.value?Container(
+                          //   width: MediaQuery.of(context).size.width,
+                          //   height: 120,
+                          //   child: Center(
+                          //     child: SvgPicture.network(Global.employee!.company_image,),
+                          //   ),
+                          // ) :
+
+                          Container(
                             // decoration: BoxDecoration(
                             //   image: DecorationImage(
                             //     image: AssetImage("assets/new_icons/background.jpg")
@@ -92,7 +94,7 @@ class CheckIn extends StatelessWidget {
                                   ),
 
                                   // SizedBox(height: 10,),
-                                  Container(
+                                  checkInController.bottomSheetOpened.value?Center():Container(
                                     // height: 30,
                                     // color: Colors.red,
                                     child: Row(
@@ -103,7 +105,7 @@ class CheckIn extends StatelessWidget {
                                     ),
                                   ),
                                   // SizedBox(height: 10,),
-                                  Container(
+                                  checkInController.bottomSheetOpened.value?Center():Container(
                                     // height: 30,
                                     // color: Colors.red,
                                     child: Row(
