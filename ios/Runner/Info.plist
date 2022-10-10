@@ -12,6 +12,8 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
     <string>This app needs access to location when to know where you do check-in/check-out.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to photo library to upload profile photo</string>
     <key>NSLocationAlwaysUsageDescription</key>
     <string>This app needs access to location when in the background.</string>
     <key>NSLocationTemporaryUsageDescriptionDictionary</key>
