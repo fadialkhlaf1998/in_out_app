@@ -8,6 +8,7 @@ import 'package:in_out_app/controller/check_in_controller.dart';
 import 'package:in_out_app/helper/app.dart';
 import 'package:in_out_app/helper/global.dart';
 import 'package:in_out_app/helper/store.dart';
+import 'package:in_out_app/view/profile.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -72,26 +73,7 @@ class CheckIn extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Container(
-                                    width: Get.width*0.9,
-                                    // height: 60,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-
-                                        // _logout(Colors.transparent),
-                                        Container(
-                                          width: MediaQuery.of(context).size.width*0.5,
-                                          height: 60,
-                                          child: Center(
-                                              child: SvgPicture.network(Global.employee!.company_image),
-                                          ),
-                                        ),
-                                        // _logout(Colors.transparent),
-
-                                      ],
-                                    ),
-                                  ),
+                                 SizedBox(height: 60,),
 
                                   // SizedBox(height: 10,),
                                   checkInController.bottomSheetOpened.value?Center():Container(
@@ -123,6 +105,62 @@ class CheckIn extends StatelessWidget {
                                 ],
                               ),
                             ),
+                          ),
+                          Container(
+                            width: Get.width,
+                            height: 60,
+                            child: Center(
+                              child: Container(
+                                width: Get.width*0.95,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+
+                                    Row(
+
+                                      children: [
+                                        Container(
+                                          width: 40,
+                                          height: 40,
+                                          color: Colors.transparent,
+                                        ),
+                                        SizedBox(width: 10,),
+                                        Icon(Icons.arrow_forward_ios,color: Colors.transparent,)
+                                      ],
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width*0.5,
+                                      height: 60,
+                                      child: Center(
+                                        child: SvgPicture.network(Global.employee!.company_image),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: (){
+                                        Get.to(()=>Profile());
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: 40,
+                                            height: 40,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: NetworkImage(Global.employee!.image)
+                                              ),
+                                              shape: BoxShape.circle,
+                                              border: Border.all(color: App.primary)
+                                            ),
+                                          ),
+                                          SizedBox(width: 5,),
+                                          Icon(Icons.arrow_forward_ios,color: Colors.white,)
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
                           ),
                           checkInController.bottomSheetOpened.value?Center():Positioned(child:  bottomSheetBtn(context),bottom: 0,),
                           AnimatedSwitcher(

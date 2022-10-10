@@ -40,11 +40,13 @@ class Employee {
     required this.state,
     required this.date,
     required this.company_image,
+    required this.image,
   });
 
   int id;
   String username;
   String password;
+  String image;
   String name;
   int companyId;
   String token;
@@ -88,6 +90,7 @@ class Employee {
     username: json["username"],
     password: json["password"],
     name: json["name"],
+    image: json["image"],
     companyId: json["company_id"],
     token: json["token"],
     in_hour: json["in_hour"],
