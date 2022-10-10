@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bounce/flutter_bounce.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 import 'package:in_out_app/controller/check_in_controller.dart';
+import 'package:in_out_app/helper/api.dart';
 import 'package:in_out_app/helper/app.dart';
 import 'package:in_out_app/helper/global.dart';
 import 'package:in_out_app/helper/store.dart';
@@ -15,9 +15,6 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 class CheckIn extends StatelessWidget {
 
   CheckInController checkInController = Get.find();
-  CheckIn(){
-    checkInController.alwaysUpdateScreen();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +79,7 @@ class CheckIn extends StatelessWidget {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text("Welcom",style: TextStyle(color: App.primary,fontSize: 30,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                                        Text("Welcome",style: TextStyle(color: App.primary,fontSize: 30,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                                       ],
                                     ),
                                   ),
@@ -146,7 +143,7 @@ class CheckIn extends StatelessWidget {
                                             height: 40,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
-                                                image: NetworkImage(Global.employee!.image)
+                                                image: NetworkImage(Api.url + 'uploads/' + Global.employee!.image)
                                               ),
                                               shape: BoxShape.circle,
                                               border: Border.all(color: App.primary)
@@ -212,18 +209,18 @@ class CheckIn extends StatelessWidget {
                               color: Colors.white.withOpacity(0.1),
                               borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
                           ),
-                          child: Center(
-                            child: Container(
-                              width: Get.width*0.9,
-                              height: 30,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  _logout(Colors.white),
-                                ],
-                              ),
-                            ),
-                          ),
+                          // child: Center(
+                          //   child: Container(
+                          //     width: Get.width*0.9,
+                          //     height: 30,
+                          //     child: Row(
+                          //       mainAxisAlignment: MainAxisAlignment.start,
+                          //       children: [
+                          //         _logout(Colors.white),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                         ),bottom: 0,)
                       ],
                     )

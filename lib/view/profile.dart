@@ -1,8 +1,14 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:in_out_app/helper/api.dart';
 import 'package:in_out_app/helper/app.dart';
 import 'package:in_out_app/helper/global.dart';
+import 'package:in_out_app/helper/store.dart';
+import 'package:in_out_app/view/change_password.dart';
+import 'package:in_out_app/view/work_hours.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -13,19 +19,19 @@ class Profile extends StatelessWidget {
       body: Container(
         width: Get.width,
         height: Get.height,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/new_icons/background.jpg"),
                 fit: BoxFit.cover
             )
         ),
         child: SafeArea(
-            child:Container(
+            child: SizedBox(
               width: Get.width,
               child: Column(
                 children: [
-                  SizedBox(height: 10,),
-                  Container(
+                  const SizedBox(height: 10,),
+                  SizedBox(
                       width: Get.width,
                       height: 60,
                       child: Center(
@@ -38,22 +44,22 @@ class Profile extends StatelessWidget {
                                   onTap: (){
                                     Get.back();
                                   },
-                                  child: Icon(Icons.arrow_back_ios,color: Colors.white,)),
-                              Container(
+                                  child: const Icon(Icons.arrow_back_ios,color: Colors.white,)),
+                              SizedBox(
                                 width: MediaQuery.of(context).size.width*0.5,
                                 height: 60,
                                 child: Center(
-                                  child: SvgPicture.network(Global.employee!.company_image),
+                                  child: SvgPicture.network( Global.employee!.company_image),
                                 ),
                               ),
-                              Icon(Icons.arrow_forward_ios,color: Colors.transparent,),
+                              const Icon(Icons.arrow_forward_ios,color: Colors.transparent,),
                             ],
                           ),
                         ),
                       )
                   ),
-                  SizedBox(height: 10,),
-                  Container(
+                  const SizedBox(height: 100),
+                  SizedBox(
                     width: 100,
                     height: 110,
                     // color: App.primary,
@@ -64,7 +70,7 @@ class Profile extends StatelessWidget {
                           height: 100,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: NetworkImage(Global.employee!.image),
+                              image: NetworkImage(Api.url + 'uploads/' +Global.employee!.image),
                               fit: BoxFit.fill,
                             ),
                             shape: BoxShape.circle,
@@ -87,7 +93,9 @@ class Profile extends StatelessWidget {
                         )
                       ],
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 30),
+                  _body()
                 ],
               ),
             )
@@ -95,4 +103,105 @@ class Profile extends StatelessWidget {
       ),
     );
   }
+
+  _body(){
+    return Container(
+      width: Get.width,
+      child: Column(
+        children: [
+          CustomProfileButton(
+            onTap: (){
+              Get.to(()=>ChangePassword());
+            },
+              width: 0.9,
+              height: 40,
+              color: Colors.transparent,
+            title: 'Change password',
+            icon: Icons.key,
+          ),
+          CustomProfileButton(
+              onTap: (){
+                Get.to(()=>WorkHours());
+              },
+              width: 0.9,
+              height: 40,
+              color: Colors.transparent,
+              title: 'My work hours',
+            icon: Icons.access_time_outlined,
+          ),
+          CustomProfileButton(
+              onTap: (){
+                Store.logout();
+              },
+              width: 0.9,
+              height: 40,
+              color: Colors.transparent,
+              title: 'Log out',
+            icon: Icons.logout,
+          ),
+        ],
+      ),
+    );
+  }
 }
+
+class CustomProfileButton extends StatelessWidget {
+
+  double width;
+  double height;
+  Color color;
+  String title;
+  VoidCallback onTap;
+  IconData icon;
+
+
+  CustomProfileButton({
+    required this.width,
+    required this.height,
+    required this.color,
+    required this.title,
+    required this.onTap,
+    required this.icon
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            width: Get.width * width,
+            height: height,
+            color: color,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(icon, color: Colors.white, size: 20,),
+                    const SizedBox(width: 10),
+                    Text(
+                      title,
+                      style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.white
+                      ),
+                    ),
+                  ],
+                ),
+                const Icon(
+                    Icons.arrow_forward_ios,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ],
+            ),
+          ),
+        ),
+        Divider(color: Colors.white.withOpacity(0.5),thickness: 1,indent: Get.width * 0.05,endIndent: Get.width * 0.05,)
+      ],
+    );
+  }
+}
+

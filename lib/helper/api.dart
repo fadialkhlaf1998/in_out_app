@@ -6,6 +6,7 @@ import 'package:in_out_app/helper/global.dart';
 import 'package:in_out_app/helper/store.dart';
 import 'package:in_out_app/model/day_person.dart';
 import 'package:in_out_app/model/employee.dart';
+import 'package:in_out_app/model/workHours.dart';
 
 class Api {
   static String url = "https://phpstack-548447-2849982.cloudwaysapps.com/";
@@ -100,4 +101,53 @@ class Api {
       return <DayPerson>[];
     }
   }
+
+  static Future changePassword(String id, String newPassword) async {
+    var headers = {
+      'Authorization': 'Barear ${Global.employee!.token}',
+      'Content-Type': 'application/json',
+    };
+    var request = http.Request('PUT', Uri.parse(url + 'api/employee/change-password'));
+    request.body = json.encode({
+      "id": id,
+      "new_password": newPassword
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      return true;
+    }
+    else {
+      print(response.reasonPhrase);
+      return false;
+    }
+  }
+
+  static Future<List<WorkHour>> getWorkHours(int year, int month) async {
+    var headers = {
+      'Authorization': 'Barear ${Global.employee!.token}',
+    };
+    var request = http.Request('GET', Uri.parse(url + 'api/check-in/data/${Global.employee!.id}/$year/$month'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print('true');
+      // print(await response.stream.bytesToString());
+      String jsonData = await response.stream.bytesToString();
+      var data = json.decode(jsonData) ;
+
+      return WorkHoursDecoder.fromMap(data).workHours;
+    }
+    else {
+
+      return <WorkHour>[];
+    }
+  }
+
 }

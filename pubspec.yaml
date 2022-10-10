@@ -44,6 +44,7 @@ dependencies:
   modal_bottom_sheet: ^2.1.2
   percent_indicator: ^4.2.2
   lottie:
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
