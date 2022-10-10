@@ -102,7 +102,7 @@ class WorkHours extends StatelessWidget {
                         ),
                       ),
                     ),
-                    workHoursController.hoursData.isEmpty
+                    workHoursController.hoursData.isEmpty && workHoursController.loading.isFalse
                         ? const Text(
                         'No data',
                       style: TextStyle(
