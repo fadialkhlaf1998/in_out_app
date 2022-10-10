@@ -46,8 +46,8 @@ class ProfileController extends GetxController{
       loading.value = false;
       if(value){
         imageList.clear();
-        editImage.value = false;
         Global.employee = await Api.login(Global.employee!.username, Global.employee!.password);
+        editImage.value = false;
       }else{
         print('error');
       }
