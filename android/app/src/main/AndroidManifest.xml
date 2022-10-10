@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:label="in_out_app"
+        android:label="in out"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
