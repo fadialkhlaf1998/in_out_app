@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final workHoursDecoder = workHoursDecoderFromMap(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 WorkHoursDecoder workHoursDecoderFromMap(String str) => WorkHoursDecoder.fromMap(json.decode(str));
@@ -15,6 +10,7 @@ class WorkHoursDecoder {
   });
 
   List<WorkHour> workHours;
+  String msg="";
 
   factory WorkHoursDecoder.fromMap(Map<String, dynamic> json) => WorkHoursDecoder(
     workHours: List<WorkHour>.from(json["work_hours"].map((x) => WorkHour.fromMap(x))),

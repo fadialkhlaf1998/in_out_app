@@ -14,8 +14,8 @@ class WorkHoursController extends GetxController{
   final columns = ['Date', 'In clock', 'Out clock', 'Break in clock', 'Break out clock', 'Overtime in clock', 'Overtime out clock', 'Work hours break'];
   RxList<WorkHour> hoursData = <WorkHour>[].obs;
   var loading = false.obs;
-  String selectedYear = DateTime.now().year.toString();
-  String selectedMonth = DateTime.now().month.toString();
+  RxString selectedYear = DateTime.now().year.toString().obs;
+  RxString selectedMonth = DateTime.now().month.toString().obs;
   @override
   void onInit(){
     super.onInit();
@@ -24,12 +24,13 @@ class WorkHoursController extends GetxController{
 
   getData() async {
     loading.value = true;
-    await Api.getWorkHours(DateTime.now().year, DateTime.now().month).then((value){
+    await Api.getWorkHours(DateTime.now().year.toString(), DateTime.now().month.toString()).then((value){
       loading.value = false;
-      if(value.isNotEmpty){
-        hoursData.addAll(value);
+      if(value.msg != 'error'){
+        hoursData.clear();
+        hoursData.addAll(value.workHours);
       }else{
-        print('empty list');
+        print('error');
       }
     });
   }
@@ -39,7 +40,7 @@ class WorkHoursController extends GetxController{
       .map((String column) => DataColumn(
       label: Text(
           column,
-        style: TextStyle(
+        style: const TextStyle(
           color: App.primary
         ),
       )
@@ -64,9 +65,22 @@ class WorkHoursController extends GetxController{
   List<DataCell> getCells(List<dynamic> cells) =>
       cells.map((data) => DataCell(Text(
           '$data',
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
         ),
       ))).toList();
+
+  applyFilter(String year, String month) async {
+    loading.value = true;
+    await Api.getWorkHours(year, month).then((value){
+      loading.value = false;
+      if(value.msg != 'error'){
+        hoursData.clear();
+        hoursData.addAll(value.workHours);
+      }else{
+        print('error-------');
+      }
+    });
+  }
 
 }

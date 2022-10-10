@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:in_out_app/helper/global.dart';
@@ -126,7 +127,7 @@ class Api {
     }
   }
 
-  static Future<List<WorkHour>> getWorkHours(int year, int month) async {
+  static Future<WorkHoursDecoder> getWorkHours(String year, String month) async {
     var headers = {
       'Authorization': 'Barear ${Global.employee!.token}',
     };
@@ -137,16 +138,40 @@ class Api {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      print('true');
-      // print(await response.stream.bytesToString());
       String jsonData = await response.stream.bytesToString();
-      var data = json.decode(jsonData) ;
-
-      return WorkHoursDecoder.fromMap(data).workHours;
+      var data = json.decode(jsonData);
+      WorkHoursDecoder workHoursDecoder =  WorkHoursDecoder.fromMap(data);
+      workHoursDecoder . msg = "";
+      return workHoursDecoder;
     }
     else {
+      WorkHoursDecoder workHoursDecoder =  WorkHoursDecoder(workHours: <WorkHour>[]);
+      workHoursDecoder . msg = "error";
+      return workHoursDecoder;
 
-      return <WorkHour>[];
+    }
+  }
+
+  static Future changeImage(File image) async {
+    var headers = {
+      'Authorization': 'Barear ${Global.employee!.token}',
+    };
+    var request = http.MultipartRequest('PUT', Uri.parse(url + 'api/employee/change-image'));
+    request.fields.addAll({
+      'id': Global.employee!.id.toString()
+    });
+    request.files.add(await http.MultipartFile.fromPath('files', image.path));
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      return true;
+    }
+    else {
+      print(response.reasonPhrase);
+      return false;
     }
   }
 
