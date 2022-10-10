@@ -71,8 +71,6 @@ class CheckIn extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                  SizedBox(height: 60,),
-
-                                  // SizedBox(height: 10,),
                                   checkInController.bottomSheetOpened.value?Center():Container(
                                     // height: 30,
                                     // color: Colors.red,
@@ -287,7 +285,7 @@ class CheckIn extends StatelessWidget {
                                             height: 50,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
-                                                image: NetworkImage(checkInController.persons[index].image),
+                                                image: NetworkImage(Api.url+"uploads/"+checkInController.persons[index].image),
                                                 fit: BoxFit.fill
                                               ),
                                               shape: BoxShape.circle,
