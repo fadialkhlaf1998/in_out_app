@@ -292,7 +292,7 @@ class CheckIn extends StatelessWidget {
                                               border: Border.all(color: Colors.white)
                                             ),
                                           ),
-                                          SizedBox(width: 20,),
+                                          const SizedBox(width: 20,),
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
