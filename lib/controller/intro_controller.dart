@@ -16,6 +16,7 @@ class IntroController extends GetxController{
   @override
   void onInit() {
     super.onInit();
+    checkInController.alwaysUpdateScreen();
     getDate();
   }
   getDate()async{
@@ -32,7 +33,7 @@ class IntroController extends GetxController{
         // print("Global.state");
         // print(emp.date);
         print(Store.sameDay());
-        checkInController.alwaysUpdateScreen();
+
         if(!Store.sameDay()&&Global.state<3&&emp.date.isNotEmpty){
           var date =DateTime.parse(emp.date);
           var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);

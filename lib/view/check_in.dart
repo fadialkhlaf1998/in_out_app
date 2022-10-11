@@ -474,12 +474,12 @@ class CheckIn extends StatelessWidget {
               children: [
                 Center(
                   child: Obx(() => AnimatedContainer(
-                    duration: Duration(milliseconds: 1000),
-                    margin: EdgeInsets.only(top: 10),
+                    duration:Duration(milliseconds: 1000),
+                    // margin: EdgeInsets.only(top: 10),
                     width: checkInController.fake.value ?150:130,
                     height: checkInController.fake.value ?150:130,
                     decoration: BoxDecoration(
-                      color: checkInController.fake.value ?color.withOpacity(0.3):color.withOpacity(0.3),
+                      color: color.withOpacity(0.3),
                       shape: BoxShape.circle,
                       border: Border.all(width: 2,color: color),
                     ),
