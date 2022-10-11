@@ -286,30 +286,37 @@ class CheckIn extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(top: 15,
-
-                child: Container(
-                  width: Get.width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.red,width: 2),
-                          color: Colors.white
-                        ),
-                        child: Center(
-                          child: Icon(Icons.close,color: Colors.red,),
-                        ),
-                      ),
-
-                    ],
-                  ),
-                )
-            )
+            // Positioned(top: 15,
+            //
+            //     child: Container(
+            //       width: Get.width,
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //         children: [
+            //           GestureDetector(
+            //             onTap: (){
+            //               Get.back();
+            //
+            //               checkInController.bottomSheetOpened.value = false;
+            //             },
+            //             child: Container(
+            //               height: 30,
+            //               width: 30,
+            //               decoration: BoxDecoration(
+            //                   shape: BoxShape.circle,
+            //                   border: Border.all(color: Colors.red,width: 2),
+            //                 color: Colors.white
+            //               ),
+            //               child: Center(
+            //                 child: Icon(Icons.close,color: Colors.red,),
+            //               ),
+            //             ),
+            //           ),
+            //
+            //         ],
+            //       ),
+            //     )
+            // )
           ],
         ),
       ),
