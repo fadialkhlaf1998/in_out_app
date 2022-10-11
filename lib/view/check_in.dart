@@ -43,58 +43,19 @@ class CheckIn extends StatelessWidget {
                       child: Stack(
                         children: [
                           checkInController.fake.value?Center():Center(),
-                          // checkInController.bottomSheetOpened.value?Container(
-                          //   width: MediaQuery.of(context).size.width,
-                          //   height: 120,
-                          //   child: Center(
-                          //     child: SvgPicture.network(Global.employee!.company_image,),
-                          //   ),
-                          // ) :
+
 
                           Container(
-                            // decoration: BoxDecoration(
-                            //   image: DecorationImage(
-                            //     image: AssetImage("assets/new_icons/background.jpg")
-                            //   )
-                            // ),
+
                             child: Container(
                               width: Get.width,
-                              height: Get.height-Get.bottomBarHeight  - Get.statusBarHeight-20,
-                              // decoration: BoxDecoration(
-                              //     image: DecorationImage(
-                              //         image: AssetImage("assets/new_icons/background.jpg"),
-                              //         fit: BoxFit.cover
-                              //     )
-                              // ),
+                              height: Get.height,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                 SizedBox(height: 60,),
-                                  checkInController.bottomSheetOpened.value?Center():Container(
-                                    // height: 30,
-                                    // color: Colors.red,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text("Welcome",style: TextStyle(color: App.primary,fontSize: 30,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-                                      ],
-                                    ),
-                                  ),
-                                  // SizedBox(height: 10,),
-                                  checkInController.bottomSheetOpened.value?Center():Container(
-                                    // height: 30,
-                                    // color: Colors.red,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text("Date: "+DateTime.now().day.toString()+"-"+DateTime.now().month.toString()+"-"+DateTime.now().year.toString(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-                                      ],
-                                    ),
-                                  ),
                                   Container(
                                     width: Get.width,
-                                    // height: Get.height-120-30-10-30-MediaQuery.of(context).padding.top-Get.bottomBarHeight,
                                     child: statesView(context),
                                   ),
                                 ],
@@ -383,9 +344,34 @@ class CheckIn extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          bigBtn("assets/new_icons/break_in.svg","Break-In",Colors.white,1),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("If You Need a Break, Please Press ",style: TextStyle(color: Colors.white,fontSize: 13,),textAlign: TextAlign.center),
+              Text("(Break-In)",style: TextStyle(color: App.primary,fontSize: 13,fontWeight: FontWeight.bold),textAlign: TextAlign.center),
+            ],
+          ),
+          SizedBox(height: 5,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("or Wait Until The End of Your Work Then Press ",style: TextStyle(color: Colors.white,fontSize: 13,),textAlign: TextAlign.center),
+              Text("(Check-Out)",style: TextStyle(color: App.primary,fontSize: 13,fontWeight: FontWeight.bold),textAlign: TextAlign.center),
+            ],
+          ),
           SizedBox(height: 30,),
-          bigBtn("assets/new_icons/check_out.svg","Check-Out",Colors.white,3),
+          Container(
+            height: 440,
+            // color: Colors.white,
+            child: Column(
+              children: [
+                bigBtn("assets/new_icons/break_in.svg","Break-In",Colors.white,1),
+                SizedBox(height: 30,),
+                bigBtn("assets/new_icons/check_out.svg","Check-Out",Colors.white,3),
+              ],
+            ),
+          )
         ],
       );
     }else if(Global.state == 1){
@@ -421,8 +407,8 @@ class CheckIn extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset("assets/new_icons/smile.svg",width: 150,color: Colors.white,),
-                SizedBox(height: 20,),
+                // SvgPicture.asset("assets/new_icons/smile.svg",width: 150,color: Colors.white,),
+                // SizedBox(height: 20,),
                 Text("Thank you for working today.",style: TextStyle(color: App.primary,fontSize: 18,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                 SizedBox(height: 10,),
                 Text("If the manager asks you to work overtime after working hours , press Extra Overtime - IN",style: TextStyle(color: Colors.white,fontSize: 16,),textAlign: TextAlign.center,),
@@ -455,10 +441,14 @@ class CheckIn extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // bigBtnOverTimeOut("assets/new_icons/over_out.svg","Extra Overtime - Out",Colors.red,4),
-          SvgPicture.asset("assets/new_icons/smile.svg",width: 150,color: Colors.white,),
           SizedBox(height: 30,),
           Text("Thank You, See You Tomorrow",style: TextStyle(color: Colors.white,fontSize: 16),),
           SizedBox(height: 30,),
+          Container(
+            width: 150,
+            height: 150,
+            child: Image.asset("assets/new_icons/transparent_logo.png",fit: BoxFit.cover,),
+          )
           // SizedBox(height: 30,),
         ],
       );
@@ -478,18 +468,27 @@ class CheckIn extends StatelessWidget {
       duration: Duration(milliseconds: 150),
       child: Column(
         children: [
-          AnimatedContainer(
-            duration: Duration(milliseconds: 1000),
-            margin: EdgeInsets.only(top: 10),
-            width: checkInController.fake.value ?150:130,
-            height: checkInController.fake.value ?150:130,
-            decoration: BoxDecoration(
-              color: checkInController.fake.value ?color.withOpacity(0.3):color.withOpacity(0.3),
-              shape: BoxShape.circle,
-              border: Border.all(width: 2,color: color),
-            ),
-            child: Center(
-              child: SvgPicture.asset(image,width: 75,color: color,),
+          Container(
+            height: 150,width: 150,
+            child: Stack(
+              children: [
+                Center(
+                  child: Obx(() => AnimatedContainer(
+                    duration: Duration(milliseconds: 1000),
+                    margin: EdgeInsets.only(top: 10),
+                    width: checkInController.fake.value ?150:130,
+                    height: checkInController.fake.value ?150:130,
+                    decoration: BoxDecoration(
+                      color: checkInController.fake.value ?color.withOpacity(0.3):color.withOpacity(0.3),
+                      shape: BoxShape.circle,
+                      border: Border.all(width: 2,color: color),
+                    ),
+                    child: Center(
+                      child: SvgPicture.asset(image,width: 75,color: color,),
+                    ),
+                  ),)
+                ),
+              ],
             ),
           ),
           SizedBox(height: 20,),

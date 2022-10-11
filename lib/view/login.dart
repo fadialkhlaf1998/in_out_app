@@ -82,7 +82,13 @@ class Login extends StatelessWidget {
              // mainAxisAlignment: MainAxisAlignment.center,
              children: [
                SizedBox(height: 50,),
-               Lottie.asset("assets/Intro.json",width: 170,height: 170),
+               // Lottie.asset("assets/Intro.json",width: 170,height: 170),
+               Container(
+                 height: 150,
+                 width: 150,
+                 // color: Colors.red,
+                 child: Image.asset("assets/new_icons/transparent_logo.png",fit: BoxFit.cover),
+               ),
                SizedBox(height: 50,),
                Text('WELCOME TO',style: TextStyle(
                  fontSize: 28,
