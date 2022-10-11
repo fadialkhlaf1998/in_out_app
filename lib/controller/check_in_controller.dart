@@ -39,7 +39,8 @@ class CheckInController extends GetxController{
           afterLoading.value = true;
           loading.value = false;
           //App.succMsg("Successfully", "Thanks For Using Our Service");
-          await Future.delayed(Duration(milliseconds: 950));
+
+          await Future.delayed(Duration(milliseconds: 780));
           afterLoading.value = false;
         }else{
           loading.value = false;
