@@ -102,6 +102,7 @@ class CheckIn extends StatelessWidget {
                                             height: 40,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
+                                                fit: BoxFit.cover,
                                                 image: NetworkImage(Api.url + 'uploads/' + Global.employee!.image)
                                               ),
                                               shape: BoxShape.circle,
@@ -247,7 +248,7 @@ class CheckIn extends StatelessWidget {
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
                                                 image: NetworkImage(Api.url+"uploads/"+checkInController.persons[index].image),
-                                                fit: BoxFit.fill
+                                                fit: BoxFit.cover
                                               ),
                                               shape: BoxShape.circle,
                                               border: Border.all(color: Colors.white)

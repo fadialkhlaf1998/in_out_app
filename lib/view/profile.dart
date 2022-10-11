@@ -77,7 +77,7 @@ class Profile extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: NetworkImage(Api.url + 'uploads/' +Global.employee!.image),
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                   ),
                                   shape: BoxShape.circle,
                                   border: Border.all(color: App.primary),

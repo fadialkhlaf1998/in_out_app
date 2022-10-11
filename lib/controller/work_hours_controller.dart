@@ -11,11 +11,17 @@ import 'package:intl/intl.dart';
 class WorkHoursController extends GetxController{
 
 
-  final columns = ['Date', 'In clock', 'Out clock', 'Break in clock', 'Break out clock', 'Overtime in clock', 'Overtime out clock', 'Work hours break'];
+  final inOutColumns = ['Date', 'In', 'Out'];
   RxList<WorkHour> hoursData = <WorkHour>[].obs;
   var loading = false.obs;
   RxString selectedYear = DateTime.now().year.toString().obs;
   RxString selectedMonth = DateTime.now().month.toString().obs;
+  RxBool inOutButton = true.obs;
+  RxBool inOutBreakButton = false.obs;
+  RxBool inOutOvertimeButton = false.obs;
+  RxInt optionNumber = 1.obs;
+
+
   @override
   void onInit(){
     super.onInit();
@@ -46,9 +52,14 @@ class WorkHoursController extends GetxController{
       )
   )).toList();
 
-  List<DataRow> getRows(List<WorkHour> workHours) => workHours.map((WorkHour workHour){
-    final cells = [dateFormat(workHour.date.toString()), workHour.inClock, workHour.outClock,workHour.breakInClock, workHour.breakOutClock, workHour.overTimeInClock, workHour.overTimeOutClock,workHour.workHourBreak];
-    return DataRow(cells: getCells(cells),color: workHours.indexOf(workHour)%2 == 0?color1:color2);
+  List<DataRow> getRows(List<WorkHour> workHours, option) => workHours.map((WorkHour workHour){
+    final cells = option == 1
+        ? [dateFormat(workHour.date.toString()), workHour.inClock, workHour.outClock]
+        : option == 2
+        ? [dateFormat(workHour.date.toString()), workHour.breakInClock, workHour.breakOutClock]
+        : [dateFormat(workHour.date.toString()), workHour.overTimeInClock, workHour.overTimeOutClock];
+
+    return DataRow(cells: getCells(cells),color: workHours.indexOf(workHour) % 2 == 0 ? color1 : color2);
   }).toList();
 
   MaterialStateProperty<Color?> color1 = MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
@@ -57,6 +68,7 @@ class WorkHoursController extends GetxController{
   MaterialStateProperty<Color?> color2 = MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
     return Colors.white.withOpacity(0.15);
   });
+
   dateFormat(String old){
     DateTime newDate = DateTime.parse(old);
     return DateFormat('d/M/y').format(newDate).toString();
