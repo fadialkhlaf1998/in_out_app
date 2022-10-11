@@ -155,14 +155,14 @@ class WorkHours extends StatelessWidget {
                                   width: 100,
                                   height: 30,
                                   decoration: BoxDecoration(
-                                    color: App.primary,
+                                    color: App.navyBlue,
                                     borderRadius: BorderRadius.circular(10)
                                   ),
                                   child: const Center(
                                     child: Text(
                                         'Apply',
                                       style: TextStyle(
-                                        color: Colors.white
+                                        color: App.primary
                                       ),
                                     ),
                                   ),
@@ -271,15 +271,15 @@ class HeaderButton extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius),
-          color: press ? App.primary : Colors.transparent,
-          border: press ? null : Border.all(width: 1, color: App.primary)
+          color: press ? App.primary : Colors.white,
+          border: press ? null : Border.all(width: 1, color: App.navyBlue)
         ),
         child: Center(
           child: Text(
             title,
             style: TextStyle(
               fontSize: 15,
-              color: press ? Colors.white : App.primary,
+              color: press ? Colors.white : App.navyBlue,
               fontWeight: press ? FontWeight.bold : FontWeight.normal
             ),
           ),
