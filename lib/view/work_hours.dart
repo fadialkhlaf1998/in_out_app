@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:in_out_app/controller/work_hours_controller.dart';
@@ -84,68 +85,104 @@ class WorkHours extends StatelessWidget {
                     //     child: const Icon(Icons.arrow_back_ios_new,color: Colors.white,size: 22),
                     //   ),
                     // ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        DropdownButton(
-                          value: workHoursController.selectedYear.value,
-                          style: const TextStyle(
-                            color: Colors.white
-                          ),
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          dropdownColor: App.primary,
-                          items:  Global.getYears().map((items) {
-                            return DropdownMenuItem(
-                              value: items.toString(),
-                              child: Text(items.toString()),
-                            );
-                          }).toList(),
-                          onChanged: (newValue) {
-                            workHoursController.selectedYear.value = newValue.toString();
-                          },
-                        ),
-                        const SizedBox(width: 30),
-                        DropdownButton(
-                          value: workHoursController.selectedMonth.value,
-                          style: const TextStyle(
-                              color: Colors.white
-                          ),
-                          dropdownColor: App.primary,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items:  Global.getMonths().map((items) {
-                            return DropdownMenuItem(
-                              value: items.toString(),
-                              child: Text(items.toString()),
-                            );
-                          }).toList(),
-                          onChanged: (newValue) {
-                            workHoursController.selectedMonth.value = newValue.toString();
-                          },
-                        ),
-                        const SizedBox(width: 30),
-                        GestureDetector(
-                          onTap: (){
-                            print('-----');
-                            workHoursController.applyFilter(workHoursController.selectedYear.value, workHoursController.selectedMonth.value);
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: App.primary,
-                              borderRadius: BorderRadius.circular(10)
-                            ),
-                            child: const Center(
-                              child: Text(
-                                  'Apply',
-                                style: TextStyle(
-                                  color: Colors.white
+                    Container(
+                      height: 50,
+                      child: Stack(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              DropdownButtonHideUnderline(
+                                child: DropdownButton2(
+                                  value: workHoursController.selectedYear.value,
+                                  style: const TextStyle(
+                                    color: Colors.white
+                                  ),
+                                  dropdownDecoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.3)
+                                  ),
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  dropdownMaxHeight: 100,
+                                  items:  Global.getYears().map((items) {
+                                    return DropdownMenuItem(
+                                      value: items.toString(),
+                                      child: Container(
+                                        width: 40,
+                                        height: 15,
+                                        child: Text(items.toString()),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    workHoursController.selectedYear.value = newValue.toString();
+                                  },
                                 ),
                               ),
-                            ),
+                              const SizedBox(width: 30),
+                              DropdownButtonHideUnderline(
+                                child: DropdownButton2(
+                                  value: workHoursController.selectedMonth.value,
+                                  style: const TextStyle(
+                                      color: Colors.white
+                                  ),
+                                  dropdownDecoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(0.3)
+                                  ),
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  dropdownMaxHeight: 150,
+                                  items:  Global.getMonths().map((items) {
+                                    return DropdownMenuItem(
+                                      value: items.toString(),
+                                      child: Container(
+                                        width: 40,
+                                        height: 15,
+                                        child: Text(items.toString()),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    workHoursController.selectedMonth.value = newValue.toString();
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 30),
+                              GestureDetector(
+                                onTap: (){
+                                  print('-----');
+                                  workHoursController.applyFilter(workHoursController.selectedYear.value, workHoursController.selectedMonth.value);
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    color: App.primary,
+                                    borderRadius: BorderRadius.circular(10)
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                        'Apply',
+                                      style: TextStyle(
+                                        color: Colors.white
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
+                          Container(
+                            width: 50,
+                            child: Center(
+                              child: GestureDetector(
+                                onTap: (){
+                                  Get.back();
+                                },
+                                child: Icon(Icons.arrow_circle_left_outlined,size: 30,color: Colors.white,),
+                              )
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 20),
                     inOutTable(workHoursController.optionNumber.value),
@@ -178,6 +215,8 @@ class WorkHours extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: DataTable(
+              dataRowHeight: 30,
+              headingRowHeight: 40,
               border: TableBorder.all(color: Colors.white.withOpacity(0.3)),
               columns: workHoursController.getColumns(columns),
               rows: workHoursController.getRows(workHoursController.hoursData,option),

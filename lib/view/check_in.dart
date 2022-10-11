@@ -169,18 +169,7 @@ class CheckIn extends StatelessWidget {
                               color: Colors.white.withOpacity(0.1),
                               borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
                           ),
-                          // child: Center(
-                          //   child: Container(
-                          //     width: Get.width*0.9,
-                          //     height: 30,
-                          //     child: Row(
-                          //       mainAxisAlignment: MainAxisAlignment.start,
-                          //       children: [
-                          //         _logout(Colors.white),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // ),
+
                         ),bottom: 0,)
                       ],
                     )
@@ -203,7 +192,7 @@ class CheckIn extends StatelessWidget {
       context: context,
         backgroundColor: Colors.transparent,
       builder: (context) => Container(
-        height: Get.height*0.6+40,
+        height: Get.height*0.6+60,
         child: Stack(
           children: [
             Align(
@@ -217,87 +206,110 @@ class CheckIn extends StatelessWidget {
                 child: SingleChildScrollView(
                   controller: ModalScrollController.of(context),
                   child: Obx(() {
-                    return Container(
-                      // color: Colors.white.withOpacity(0.5),
-                      width: MediaQuery.of(context).size.width,
-                      height: Get.height*0.6,
-                      child: checkInController.bottomSheetLoading.value?
-                      App.Loading()
-                          :checkInController.persons.length == 0?
-                      Center(child: Text("No One Yet",style: TextStyle(color: Colors.white),),)
-                      :ListView.builder(
-                        itemCount: checkInController.persons.length,
-                        itemBuilder: (context,index){
-                          return Container(
-                            width: MediaQuery.of(context).size.width*0.9,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 60,
-                                  width: MediaQuery.of(context).size.width*0.9,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
+                    return Stack(
+                      children: [
+                        Container(
+                          // color: Colors.white.withOpacity(0.5),
+                          width: MediaQuery.of(context).size.width,
+                          height: Get.height*0.6,
+                          child: checkInController.bottomSheetLoading.value?
+                          App.Loading()
+                              :checkInController.persons.length == 0?
+                          Center(child: Text("No One Yet",style: TextStyle(color: Colors.white),),)
+                          :ListView.builder(
+                            itemCount: checkInController.persons.length,
+                            itemBuilder: (context,index){
+                              return Container(
+                                width: MediaQuery.of(context).size.width*0.9,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      height: 60,
+                                      width: MediaQuery.of(context).size.width*0.9,
+                                      child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Container(
-                                            width: 50,
-                                            height: 50,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(Api.url+"uploads/"+checkInController.persons[index].image),
-                                                fit: BoxFit.cover
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(Api.url+"uploads/"+checkInController.persons[index].image),
+                                                    fit: BoxFit.cover
+                                                  ),
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(color: Colors.white)
+                                                ),
                                               ),
-                                              shape: BoxShape.circle,
-                                              border: Border.all(color: Colors.white)
-                                            ),
+                                              const SizedBox(width: 20,),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: [
+                                                  Text(checkInController.persons[index].employee,style: TextStyle(color: Colors.white,fontSize: 16),),
+                                                  Text(checkInController.persons[index].getDescription(),style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),)
+                                                ],
+                                              )
+                                            ],
                                           ),
-                                          const SizedBox(width: 20,),
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
                                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
-                                              Text(checkInController.persons[index].employee,style: TextStyle(color: Colors.white,fontSize: 16),),
-                                              Text(checkInController.persons[index].getDescription(),style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),)
+                                              Text(checkInController.persons[index].getState(),style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,fontSize: 16),),
+                                              Text(checkInController.persons[index].getClock(),style: TextStyle(color: Colors.white.withOpacity(0.9),fontSize: 16),),
                                             ],
                                           )
                                         ],
                                       ),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(checkInController.persons[index].getState(),style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,fontSize: 16),),
-                                          Text(checkInController.persons[index].getClock(),style: TextStyle(color: Colors.white.withOpacity(0.9),fontSize: 16),),
-                                        ],
-                                      )
-                                    ],
-                                  ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Container(
+                                      width: Get.width*0.9,
+                                      child:  Divider(color: Colors.white,height: 1.5),
+                                    ),
+                                    SizedBox(height: 10,),
+                                  ],
                                 ),
-                                SizedBox(height: 10,),
-                                Container(
-                                  width: Get.width*0.9,
-                                  child:  Divider(color: Colors.white,height: 1.5),
-                                ),
-                                SizedBox(height: 10,),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                              );
+                            },
+                          ),
+                        ),
+
+                      ],
                     );
                   })
                 ),
               ),
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Icon(Icons.arrow_drop_down_circle_outlined,color: Colors.white,)
-            //   ],
-            // ),
+            Positioned(top: 15,
+
+                child: Container(
+                  width: Get.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.red,width: 2),
+                          color: Colors.white
+                        ),
+                        child: Center(
+                          child: Icon(Icons.close,color: Colors.red,),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                )
+            )
           ],
         ),
       ),
@@ -443,7 +455,9 @@ class CheckIn extends StatelessWidget {
         children: [
           // bigBtnOverTimeOut("assets/new_icons/over_out.svg","Extra Overtime - Out",Colors.red,4),
           SizedBox(height: 30,),
-          Text("Thank You, See You Tomorrow",style: TextStyle(color: Colors.white,fontSize: 16),),
+          Text("Thank You",style: TextStyle(color: App.primary,fontSize: 22,fontWeight: FontWeight.bold,),),
+          SizedBox(height: 15,),
+          Text("See You Tomorrow",style: TextStyle(color: Colors.white,fontSize: 16),),
           SizedBox(height: 30,),
           Container(
             width: 150,
@@ -493,7 +507,7 @@ class CheckIn extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20,),
-          Text(title, style: TextStyle(color: color,fontSize: 18)),
+          Text(title, style: TextStyle(color: color,fontSize: 20)),
         ],
       ),
     );
@@ -537,7 +551,7 @@ class CheckIn extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20,),
-          Text(title, style: TextStyle(color: color,fontSize: 18)),
+          Text(title, style: TextStyle(color: color,fontSize: 20)),
         ],
       ),
     );
@@ -581,7 +595,7 @@ class CheckIn extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20,),
-          Text(title, style: TextStyle(color: color,fontSize: 18)),
+          Text(title, style: TextStyle(color: color,fontSize: 20)),
         ],
       ),
     );
@@ -616,7 +630,7 @@ class CheckIn extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20,),
-          Text(title, style: TextStyle(color: color,fontSize: 18)),
+          Text(title, style: TextStyle(color: color,fontSize: 20)),
         ],
       ),
     );
@@ -665,7 +679,7 @@ class CheckIn extends StatelessWidget {
                 )
           ),
           SizedBox(height: 20,),
-          Text(title, style: TextStyle(color: color,fontSize: 18)),
+          Text(title, style: TextStyle(color: color,fontSize: 20)),
         ],
       ),
     );

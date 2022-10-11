@@ -42,7 +42,7 @@ class Profile extends StatelessWidget {
                             height: 60,
                             child: Center(
                               child: Container(
-                                width: Get.width * 0.95,
+                                width: Get.width * 0.9,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
@@ -50,7 +50,7 @@ class Profile extends StatelessWidget {
                                         onTap: (){
                                           Get.back();
                                         },
-                                        child: const Icon(Icons.arrow_back_ios,color: Colors.white,)),
+                                        child: const Icon(Icons.arrow_circle_left_outlined,color: Colors.white,size: 35,)),
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width*0.5,
                                       height: 60,
@@ -58,7 +58,7 @@ class Profile extends StatelessWidget {
                                         child: SvgPicture.network( Global.employee!.company_image),
                                       ),
                                     ),
-                                    const Icon(Icons.arrow_forward_ios,color: Colors.transparent,),
+                                    const Icon(Icons.arrow_forward_ios,color: Colors.transparent,size: 35,),
                                   ],
                                 ),
                               ),
