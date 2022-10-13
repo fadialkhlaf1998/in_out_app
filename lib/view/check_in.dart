@@ -54,6 +54,7 @@ class CheckIn extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+
                                   Container(
                                     width: Get.width,
                                     child: statesView(context),
@@ -84,13 +85,13 @@ class CheckIn extends StatelessWidget {
                                         Icon(Icons.arrow_forward_ios,color: Colors.transparent,)
                                       ],
                                     ),
-                                    Container(
-                                      width: MediaQuery.of(context).size.width*0.5,
-                                      height: 60,
-                                      child: Center(
-                                        child: SvgPicture.network(Global.employee!.company_image),
-                                      ),
-                                    ),
+                                    // Container(
+                                    //   width: MediaQuery.of(context).size.width*0.5,
+                                    //   height: 60,
+                                    //   child: Center(
+                                    //     child: SvgPicture.network(Global.employee!.company_image),
+                                    //   ),
+                                    // ),
                                     GestureDetector(
                                       onTap: (){
                                         Get.to(()=>Profile());
@@ -119,6 +120,22 @@ class CheckIn extends StatelessWidget {
                               ),
                             )
                           ),
+                          Positioned(
+                            top: 60,
+                            left: MediaQuery.of(context).size.width*0.25,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+
+                                Container(
+                                  width: MediaQuery.of(context).size.width*0.5,
+                                  height: 40,
+                                  child: Center(
+                                    child: SvgPicture.network(Global.employee!.company_image),
+                                  ),
+                                )
+                              ],
+                            ),),
                           checkInController.bottomSheetOpened.value?Center():Positioned(child:  bottomSheetBtn(context),bottom: 0,),
                           AnimatedSwitcher(
                             duration: const Duration(milliseconds: 300),
@@ -670,13 +687,13 @@ class CheckIn extends StatelessWidget {
                     radius: 75.0,
                     lineWidth: 2.0,
                     percent:
-                    Global.employee!.getLastDateOp()!.difference(DateTime.now()).inMinutes.abs()/30>1
+                    Global.employee!.getLastDateOp()!.difference(DateTime.now()).inMinutes.abs()/60>1
                         ?1
-                        :Global.employee!.getLastDateOp()!.difference(DateTime.now()).inMinutes.abs()/30,
+                        :Global.employee!.getLastDateOp()!.difference(DateTime.now()).inMinutes.abs()/60,
                     center: Center(
                       child: SvgPicture.asset(image,width: 75,color: color,),
                     ),
-                    progressColor: getPecentageColor(Global.employee!.getLastDateOp()!.difference(DateTime.now()).inMinutes.abs()/30),
+                    progressColor: getPecentageColor(Global.employee!.getLastDateOp()!.difference(DateTime.now()).inMinutes.abs()/60),
 
                     // widgetIndicator:
                   )

@@ -16,6 +16,9 @@ class WorkHoursController extends GetxController{
   var loading = false.obs;
   RxString selectedYear = DateTime.now().year.toString().obs;
   RxString selectedMonth = DateTime.now().month.toString().obs;
+
+  RxString selectedYearOldData = DateTime.now().year.toString().obs;
+  RxString selectedMonthOldData = DateTime.now().month.toString().obs;
   RxBool inOutButton = true.obs;
   RxBool inOutBreakButton = false.obs;
   RxBool inOutOvertimeButton = false.obs;
@@ -87,6 +90,8 @@ class WorkHoursController extends GetxController{
     await Api.getWorkHours(year, month).then((value){
       loading.value = false;
       if(value.msg != 'error'){
+        selectedMonthOldData.value = month;
+        selectedYearOldData.value = year;
         hoursData.clear();
         hoursData.addAll(value.workHours);
       }else{
