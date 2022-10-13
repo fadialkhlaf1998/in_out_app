@@ -30,18 +30,19 @@ class WorkHours extends StatelessWidget {
                   children: [
                     Container(
                       width: Get.width,
-                      height: 110,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.3),
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(30),
-                          bottomRight: Radius.circular(30),
-                        )
-                      ),
+                      height: 120,
+                      // decoration: BoxDecoration(
+                      //   color: Colors.white.withOpacity(0.3),
+                      //   borderRadius: const BorderRadius.only(
+                      //     bottomLeft: Radius.circular(30),
+                      //     bottomRight: Radius.circular(30),
+                      //   )
+                      // ),
                       child: Column(
                         children: [
+                          SizedBox(height: 20,),
                           Container(
-                            height: 40,
+                            height: 30,
                             width: Get.width*0.9,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +62,7 @@ class WorkHours extends StatelessWidget {
                                     ],
                                   )
                                 ),
-                                Text(workHoursController.selectedYearOldData.value+"/"+workHoursController.selectedMonthOldData.value,style: TextStyle(color: App.navyBlue,fontSize: 18,fontWeight: FontWeight.bold),),
+                                Text(workHoursController.selectedYearOldData.value+"/"+workHoursController.selectedMonthOldData.value,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
                                 GestureDetector(
                                   onTap: (){
                                     print('-----');
@@ -294,7 +295,7 @@ class HeaderButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius),
           color: press ? App.primary : Colors.white,
-          border: press ? null : Border.all(width: 1, color: App.navyBlue)
+          // border: press ? null : Border.all(width: 1, color: App.navyBlue)
         ),
         child: Center(
           child: Text(
