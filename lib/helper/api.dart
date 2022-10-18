@@ -29,6 +29,7 @@ class Api {
 
     if (response.statusCode == 200) {
       String jsonData = await response.stream.bytesToString();
+      print(jsonData);
       EmployeeDecoder temp = EmployeeDecoder.fromJson(jsonData);
       token = temp.employee.token;
       Global.employee = temp.employee;

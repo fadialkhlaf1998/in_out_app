@@ -65,7 +65,7 @@ class Store {
   }
 
   static bool sameDay() {
-
+    print("Hours now : "+DateTime.now().hour.toString());
     if ((((Global.myDate.day == DateTime.now().day-1)&&DateTime.now().hour < 8)||Global.myDate.day == DateTime.now().day) &&
         Global.myDate.month == DateTime
             .now()
