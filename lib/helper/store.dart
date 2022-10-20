@@ -65,14 +65,27 @@ class Store {
   }
 
   static bool sameDay() {
+    DateTime today = DateTime.now();
+    DateTime yesterday = DateTime.now().subtract(Duration(days: 1));
+
     print("Hours now : "+DateTime.now().hour.toString());
-    if ((((Global.myDate.day == DateTime.now().day-1)&&DateTime.now().hour < 8)||Global.myDate.day == DateTime.now().day) &&
-        Global.myDate.month == DateTime
-            .now()
-            .month &&
-        Global.myDate.year == DateTime
-            .now()
-            .year) {
+    print("Today : "+today.toString());
+    print("Yesterday : "+yesterday.toString());
+    print("day : "+Global.myDate.day.toString());
+    print("month : "+Global.myDate.month.toString());
+    print("year : "+Global.myDate.year.toString());
+    if (
+        (Global.myDate.day == today.day &&
+        Global.myDate.month == today.month &&
+        Global.myDate.year == today.year &&
+        DateTime.now().hour >= 8)
+            ||
+        (Global.myDate.day == yesterday.day &&
+        Global.myDate.month == yesterday.month &&
+        Global.myDate.year == yesterday.year &&
+        DateTime.now().hour < 8)
+
+    ) {
       return true;
     } else {
       return false;

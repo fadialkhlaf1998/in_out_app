@@ -73,14 +73,22 @@ class Employee {
   MyDate getMyDate(){
     try {
       String data = date.split("T")[0];
-      int year = int.parse(data.split("-")[0]);
-      int month = int.parse(data.split("-")[1]);
-      int day = int.parse(data.split("-")[2]);
-      return MyDate(year,month,day);
+      DateTime myNewDate = DateTime.parse(data + " " + time);
+      // print("Here Is new Date: "+myNewDate.toString());
+      // print("Here Is new Date: "+myNewDate.hour.toString());
+
+      if(myNewDate.hour > 8){
+        return MyDate(myNewDate.year,myNewDate.month,myNewDate.day);
+      }else{
+        DateTime yesterday = myNewDate.subtract(Duration(days: 1));
+        return MyDate(yesterday.year,yesterday.month,yesterday.day);
+      }
     }catch(err){
       return MyDate(-1, -1, -1);
     }
   }
+
+
   factory Employee.fromJson(String str) => Employee.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());

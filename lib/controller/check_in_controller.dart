@@ -34,6 +34,7 @@ class CheckInController extends GetxController{
         Global.employee!.date = now.year.toString()+"-"+now.month.toString()+"-"+now.day.toString()+"T"+"00:00:00.000Z";
         bool succ = await Api.checkIn(state, "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}",now);
         if(succ){
+          await Api.login( Global.employee!.username, Global.employee!.password);
           Global.state = state;
           Global.myDate = Global.employee!.getMyDate();
           afterLoading.value = true;

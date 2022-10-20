@@ -80,11 +80,14 @@ class Api {
       'Authorization': 'Bearer '+token,
     };
     var request = http.Request('POST', Uri.parse(url+'/api/check-in/app-list'));
+    DateTime today = DateTime.now();
+    DateTime yesterday = DateTime.now().subtract(Duration(days: 1));
+    DateTime date = DateTime.now().hour < 8?yesterday:today;
     request.body = json.encode({
       "company_id": Global.employee!.companyId,
-      "year": DateTime.now().year,
-      "month": DateTime.now().month,
-      "day": DateTime.now().day
+      "year": date.year,
+      "month": date.month,
+      "day": date.day
     });
     request.headers.addAll(headers);
 
