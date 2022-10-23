@@ -430,7 +430,7 @@ class CheckIn extends StatelessWidget {
           bigBtn("assets/new_icons/check_out.svg","Check-Out",Colors.white,3),
         ],
       );
-    }else if(Global.state == 3){
+    }else if(Global.state == 3&& Global.overTimeStore.inTime.length == 0){
       return Column(
         // runAlignment: WrapAlignment.center,
         // alignment: WrapAlignment.center,
@@ -443,8 +443,7 @@ class CheckIn extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // SvgPicture.asset("assets/new_icons/smile.svg",width: 150,color: Colors.white,),
-                // SizedBox(height: 20,),
+
                 Text("Thank you for working today.",style: TextStyle(color: App.primary,fontSize: 18,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                 SizedBox(height: 10,),
                 Text("If the manager asks you to work overtime after working hours , press Extra Overtime - IN",style: TextStyle(color: Colors.white,fontSize: 16,),textAlign: TextAlign.center,),
@@ -455,7 +454,7 @@ class CheckIn extends StatelessWidget {
           bigBtnOverTimeIn("assets/new_icons/over_in.svg","Extra Overtime - IN",Colors.white,4),
         ],
       );
-    }else if(Global.state == 4){
+    }else if(Global.state == 3 && Global.overTimeStore.inTime.length > 0){
       return Wrap(
         runAlignment: WrapAlignment.center,
         alignment: WrapAlignment.center,
@@ -540,7 +539,7 @@ class CheckIn extends StatelessWidget {
     return Bounce(
       onPressed: (){
         if(color == Colors.white){
-          checkInController.checkIn(state);
+          checkInController.overTime();
         }
       },
       duration: Duration(milliseconds: 150),
@@ -584,7 +583,7 @@ class CheckIn extends StatelessWidget {
     return Bounce(
       onPressed: (){
         if(color == Colors.white){
-          checkInController.checkIn(state);
+          checkInController.overTime();
         }
       },
       duration: Duration(milliseconds: 150),

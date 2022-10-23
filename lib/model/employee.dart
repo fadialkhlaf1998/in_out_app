@@ -73,14 +73,16 @@ class Employee {
   MyDate getMyDate(){
     try {
       String data = date.split("T")[0];
-      DateTime myNewDate = DateTime.parse(data + " " + time);
+      DateTime myNewDate = DateTime.parse(data);
       // print("Here Is new Date: "+myNewDate.toString());
       // print("Here Is new Date: "+myNewDate.hour.toString());
-
+      return MyDate(myNewDate.year,myNewDate.month,myNewDate.day);
       if(myNewDate.hour > 8){
         return MyDate(myNewDate.year,myNewDate.month,myNewDate.day);
       }else{
+        print("yester day");
         DateTime yesterday = myNewDate.subtract(Duration(days: 1));
+        print(yesterday.toString());
         return MyDate(yesterday.year,yesterday.month,yesterday.day);
       }
     }catch(err){

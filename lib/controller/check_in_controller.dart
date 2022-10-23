@@ -3,6 +3,7 @@ import 'package:in_out_app/helper/api.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:in_out_app/helper/app.dart';
 import 'package:in_out_app/helper/global.dart';
+import 'package:in_out_app/helper/store.dart';
 import 'package:in_out_app/model/day_person.dart';
 import 'package:in_out_app/view/login.dart';
 
@@ -35,6 +36,7 @@ class CheckInController extends GetxController{
         bool succ = await Api.checkIn(state, "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}",now);
         if(succ){
           await Api.login( Global.employee!.username, Global.employee!.password);
+          Store.clearOverTime();
           Global.state = state;
           Global.myDate = Global.employee!.getMyDate();
           afterLoading.value = true;
@@ -52,6 +54,38 @@ class CheckInController extends GetxController{
       }
     }else{
       Get.offAll(()=>Login());
+    }
+  }
+  overTime()async{
+    loading.value = true;
+    print('*********------******-------************'+Global.overTimeStore.inTime);;
+    var location = await _determinePosition();
+    if(location!=null){
+      if(Global.overTimeStore.inTime.length > 0){
+        Global.overTimeStore.outTime = DateTime.now().toString();
+        Global.overTimeStore.out_location = "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}";
+        print('here');
+        bool succ = await Api.overTime();
+        if(succ){
+          afterLoading.value = true;
+          loading.value = false;
+          await Future.delayed(Duration(milliseconds: 780));
+          afterLoading.value = false;
+        }else{
+          loading.value = false;
+          App.errMsg("Failed", "Oops Please Try Again");
+        }
+      }else{
+
+        Global.overTimeStore.inTime = DateTime.now().toString();
+        Global.overTimeStore.in_location = "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}";
+        Store.saveOverTime();
+        loading.value = false;
+      }
+
+    }else{
+      loading.value = false;
+      App.errMsg("Failed", "Cannot get current location");
     }
   }
 

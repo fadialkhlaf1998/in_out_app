@@ -242,7 +242,7 @@ class WorkHours extends StatelessWidget {
               headingRowHeight: 40,
               border: TableBorder.all(color: Colors.white.withOpacity(0.3)),
               columns: workHoursController.getColumns(columns),
-              rows: workHoursController.getRows(workHoursController.hoursData,option),
+              rows: workHoursController.getRows(workHoursController.hoursData,option,workHoursController.overTime),
             ),
           ),
         ),

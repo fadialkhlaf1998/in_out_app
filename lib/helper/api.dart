@@ -149,7 +149,7 @@ class Api {
       return workHoursDecoder;
     }
     else {
-      WorkHoursDecoder workHoursDecoder =  WorkHoursDecoder(workHours: <WorkHour>[]);
+      WorkHoursDecoder workHoursDecoder =  WorkHoursDecoder(workHours: <WorkHour>[],overTime: <OverTime>[]);
       workHoursDecoder . msg = "error";
       return workHoursDecoder;
 
@@ -177,6 +177,36 @@ class Api {
       print(response.reasonPhrase);
       return false;
     }
+  }
+
+  static Future<bool> overTime()async{
+    var headers = {
+      'Authorization': 'Bearer ${Global.employee!.token}',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse(url+'api/over-time'));
+    request.body = json.encode({
+      "employee_id": Global.employee!.id,
+      "company_id": Global.employee!.companyId,
+      "out_location": Global.overTimeStore.out_location,
+      "in_location": Global.overTimeStore.in_location,
+      "mobile_date_time_in": Global.overTimeStore.inTime,
+      "mobile_date_time_out": Global.overTimeStore.outTime
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      Store.clearOverTime();
+      return true;
+    }
+    else {
+      print(response.reasonPhrase);
+      return false;
+    }
+
   }
 
 }

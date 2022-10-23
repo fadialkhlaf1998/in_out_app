@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:in_out_app/helper/global.dart';
 import 'package:in_out_app/model/login_info.dart';
@@ -59,6 +61,7 @@ class Store {
     prefs.remove("loginInfo");
     //Global.myDate = MyDate(-1, -1, -1);
    // Global.state = 3;
+    clearOverTime();
     Global.employee = null;
     Get.offAll(()=>Login());
     return true;
@@ -68,12 +71,6 @@ class Store {
     DateTime today = DateTime.now();
     DateTime yesterday = DateTime.now().subtract(Duration(days: 1));
 
-    print("Hours now : "+DateTime.now().hour.toString());
-    print("Today : "+today.toString());
-    print("Yesterday : "+yesterday.toString());
-    print("day : "+Global.myDate.day.toString());
-    print("month : "+Global.myDate.month.toString());
-    print("year : "+Global.myDate.year.toString());
     if (
         (Global.myDate.day == today.day &&
         Global.myDate.month == today.month &&
@@ -91,4 +88,80 @@ class Store {
       return false;
     }
   }
+  static saveOverTime ()async{
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString("OverTime", Global.overTimeStore.toJson());
+  }
+  static clearOverTime ()async{
+    var prefs = await SharedPreferences.getInstance();
+    prefs.remove("OverTime");
+    Global.overTimeStore = OverTimeStore(inTime: "", outTime: "", in_location: "", out_location: "");
+    loadOverTime();
+  }
+  static Future<OverTimeStore> loadOverTime()async{
+    var prefs = await SharedPreferences.getInstance();
+    String data = prefs.getString("OverTime")??"non";
+    print('data: '+data);
+    if(data == "non"){
+      return Global.overTimeStore;
+    }else{
+      Global.overTimeStore = OverTimeStore.fromJson(data);
+      return Global.overTimeStore;
+    }
+  }
+  static bool sameDayReal() {
+    DateTime today = DateTime.now();
+    DateTime yesterday = DateTime.now().subtract(Duration(days: 1));
+
+    print("Hours now : "+DateTime.now().hour.toString());
+    print("Today : "+today.toString());
+    print("Yesterday : "+yesterday.toString());
+    print("day : "+Global.myDate.day.toString());
+    print("month : "+Global.myDate.month.toString());
+    print("year : "+Global.myDate.year.toString());
+    if (
+    Global.myDate.day == today.day &&
+        Global.myDate.month == today.month &&
+        Global.myDate.year == today.year
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+
+
+class OverTimeStore {
+  OverTimeStore({
+    required this.inTime,
+    required this.outTime,
+    required this.in_location,
+    required this.out_location,
+  });
+
+  String inTime;
+  String outTime;
+  String in_location;
+  String out_location;
+
+  factory OverTimeStore.fromJson(String str) => OverTimeStore.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory OverTimeStore.fromMap(Map<String, dynamic> json) => OverTimeStore(
+    inTime: json["inTime"],
+    outTime: json["outTime"],
+    in_location: json["in_location"],
+    out_location: json["out_location"],
+
+  );
+
+  Map<String, dynamic> toMap() => {
+    "inTime": inTime,
+    "outTime": outTime,
+    "in_location":in_location,
+    "out_location":out_location
+  };
 }

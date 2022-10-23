@@ -13,6 +13,7 @@ class WorkHoursController extends GetxController{
 
   final inOutColumns = ['Date', 'In', 'Out'];
   RxList<WorkHour> hoursData = <WorkHour>[].obs;
+  RxList<OverTime> overTime = <OverTime>[].obs;
   var loading = false.obs;
   RxString selectedYear = DateTime.now().year.toString().obs;
   RxString selectedMonth = DateTime.now().month.toString().obs;
@@ -38,6 +39,8 @@ class WorkHoursController extends GetxController{
       if(value.msg != 'error'){
         hoursData.clear();
         hoursData.addAll(value.workHours);
+        overTime = value.overTime.obs;
+        print('overTimeLength'+ overTime.length.toString());
       }else{
         print('error');
       }
@@ -55,12 +58,18 @@ class WorkHoursController extends GetxController{
       )
   )).toList();
 
-  List<DataRow> getRows(List<WorkHour> workHours, option) => workHours.map((WorkHour workHour){
+  List<DataRow> getRows(List<WorkHour> workHours, option,List<OverTime> overTime) =>
+      option == 3 ?
+      overTime.map((OverTime elm){
+        final cells =  [dateFormat(elm.date.toString()), elm.in_time, elm.out_time];
+
+        return DataRow(cells: getCells(cells),color: overTime.indexOf(elm) % 2 == 0 ? color1 : color2);
+      }).toList()
+
+      :workHours.map((WorkHour workHour){
     final cells = option == 1
         ? [dateFormat(workHour.date.toString()), workHour.inClock, workHour.outClock]
-        : option == 2
-        ? [dateFormat(workHour.date.toString()), workHour.breakInClock, workHour.breakOutClock]
-        : [dateFormat(workHour.date.toString()), workHour.overTimeInClock, workHour.overTimeOutClock];
+        : [dateFormat(workHour.date.toString()), workHour.breakInClock, workHour.breakOutClock];
 
     return DataRow(cells: getCells(cells),color: workHours.indexOf(workHour) % 2 == 0 ? color1 : color2);
   }).toList();
@@ -94,6 +103,8 @@ class WorkHoursController extends GetxController{
         selectedYearOldData.value = year;
         hoursData.clear();
         hoursData.addAll(value.workHours);
+        overTime = value.overTime.obs;
+        print('overTimeLength'+ overTime.length.toString());
       }else{
         print('error-------');
       }

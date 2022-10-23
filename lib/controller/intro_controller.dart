@@ -23,6 +23,7 @@ class IntroController extends GetxController{
     await Future.delayed(Duration(milliseconds: 1200));
     LoginInfo? loginInfo = await Store.loadLoginInfo();
     await Store.loadDate();
+    await Store.loadOverTime();
     if(loginInfo !=null){
       Employee? emp = await Api.login(loginInfo.username, loginInfo.password);
 
@@ -30,9 +31,10 @@ class IntroController extends GetxController{
         // Global.myDate = emp.getMyDate();
         // Global.state = emp.state;
         print(Global.state);
+        print(Global.myDate.day);
         print(Store.sameDay());
 
-        if(!Store.sameDay()&&Global.state<3&&emp.date.isNotEmpty){
+        if(!Store.sameDayReal()&&Global.state<3&&emp.date.isNotEmpty){
           print('*********************************');
           var date =DateTime.parse(emp.date);
           var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);
