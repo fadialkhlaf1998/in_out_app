@@ -263,23 +263,30 @@ class CheckIn extends StatelessWidget {
                                                 ),
                                               ),
                                               const SizedBox(width: 20,),
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                children: [
-                                                  Text(checkInController.persons[index].employee,style: TextStyle(color: Colors.white,fontSize: 16),),
-                                                  Text(checkInController.persons[index].getDescription(),style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),)
-                                                ],
+                                              Container(
+                                                width: Get.width*0.9 - 70-100,
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  children: [
+                                                    Text(checkInController.persons[index].employee,style: TextStyle(color: Colors.white,fontSize: 15,overflow: TextOverflow.ellipsis),maxLines: 1,),
+                                                    Text(checkInController.persons[index].getDescription(),style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 15,overflow: TextOverflow.ellipsis),maxLines: 1)
+                                                  ],
+                                                ),
                                               )
                                             ],
                                           ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Text(checkInController.persons[index].getState(),style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,fontSize: 16),),
-                                              Text(checkInController.persons[index].getClock(),style: TextStyle(color: Colors.white.withOpacity(0.9),fontSize: 16),),
-                                            ],
+                                          Container(
+                                            width: 100,
+                                            // color: Colors.red,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Text(checkInController.persons[index].getState(),style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,fontSize: 16),),
+                                                Text(checkInController.persons[index].getClock(),style: TextStyle(color: Colors.white.withOpacity(0.9),fontSize: 16),),
+                                              ],
+                                            ),
                                           )
                                         ],
                                       ),
