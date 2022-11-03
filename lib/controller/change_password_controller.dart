@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:in_out_app/helper/api.dart';
 import 'package:in_out_app/helper/app.dart';
 import 'package:in_out_app/helper/global.dart';
+import 'package:in_out_app/helper/store.dart';
 
 
 class ChangePasswordController extends GetxController{
@@ -29,6 +30,7 @@ class ChangePasswordController extends GetxController{
       Api.changePassword(Global.employee!.id.toString(), newPassword.text).then((value){
         if(value){
           Get.back();
+          Store.saveLoginInfo(Global.employee!.username, newPassword.text);
           App.succMsg('Success', 'Password changed successfully');
 
         }else{
