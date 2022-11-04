@@ -37,7 +37,9 @@ class IntroController extends GetxController{
         if(!Store.sameDayReal()&&Global.state<3&&emp.date.isNotEmpty){
           print('*********************************');
           var date =DateTime.parse(emp.date);
-          var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);
+          String allOutHour = "23:59";
+          // var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);
+          var out = DateTime(date.year,date.month,date.day,App.getHr(allOutHour),App.getMin(allOutHour),0);
           await checkInController.checkInWithDate(3, out);
         }
         print('----------HERE----------');

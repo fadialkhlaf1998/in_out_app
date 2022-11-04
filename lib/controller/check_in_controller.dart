@@ -21,8 +21,21 @@ class CheckInController extends GetxController{
     while(true){
       await Future.delayed(Duration(milliseconds: 1000));
       fake.value = !fake.value;
+      try{
+        if(!Store.sameDayReal()&&Global.state<3&&Global.employee!.date.isNotEmpty){
+          print('*********************************');
+          var date =DateTime.parse(Global.employee!.date);
+          String allOutHour = "23:59";
+          // var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);
+          var out = DateTime(date.year,date.month,date.day,App.getHr(allOutHour),App.getMin(allOutHour),0);
+          await checkInWithDate(3, out);
+        }
+      }catch(e){
+
+      }
     }
   }
+
 
   checkIn(int state)async{
 
@@ -90,10 +103,13 @@ class CheckInController extends GetxController{
   }
 
   Future<bool> checkInWithDate(int state,DateTime dateTime)async{
+    print('check in with date');
     if(Global.employee !=null){
       loading.value = true;
       var location = await _determinePosition();
+
       if(location!=null){
+        print('yes location');
         bool succ = await Api.checkIn(state, "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}",dateTime);
         if(succ){
           Global.state = state;
@@ -106,14 +122,29 @@ class CheckInController extends GetxController{
           // App.errMsg("Failed", "Oops Please Try Again");
         }
       }else{
-        loading.value = false;
-        return await checkInWithDate(state,dateTime);
+        print('no location');
+        print('yes location');
+        bool succ = await Api.checkIn(state, "Error: No Location Auto Check out",dateTime);
+        if(succ){
+          Global.state = state;
+          loading.value = false;
+          // App.succMsg("Successfully", "Thanks For Using Our Service");
+          return true;
+        }else{
+          loading.value = false;
+          return await checkInWithDate(state,dateTime);
+          // App.errMsg("Failed", "Oops Please Try Again");
+        }
+        // loading.value = false;
+        // return await checkInWithDate(state,dateTime);
       }
     }else{
+      print('Employee null');
       Get.offAll(()=>Login());
       return false;
     }
   }
+
 
 
   getApplist()async{

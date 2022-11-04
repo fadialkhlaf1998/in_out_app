@@ -18,6 +18,7 @@ class Api {
     var headers = {
       'Content-Type': 'application/json',
     };
+    print('start login **************');
     var request = http.Request('POST', Uri.parse(url+'/api/employee/login'));
     request.body = json.encode({
       "username": username,
@@ -26,7 +27,7 @@ class Api {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-
+    print('end login **************');
     if (response.statusCode == 200) {
       String jsonData = await response.stream.bytesToString();
       print(jsonData);
@@ -49,6 +50,7 @@ class Api {
       'Authorization': 'Bearer '+token,
       'Content-Type': 'application/json',
     };
+    print('start check in');
     var request = http.Request('POST', Uri.parse(url+'/api/check-in'));
     request.body = json.encode({
       "employee_id": Global.employee!.id,
@@ -57,10 +59,11 @@ class Api {
       "mobile_date_time": dateTime.toString(),
       "location": location
     });
+
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-
+    print('end with' + response.statusCode.toString());
     if (response.statusCode == 200) {
       Store.saveState(state);
       print(await response.stream.bytesToString());

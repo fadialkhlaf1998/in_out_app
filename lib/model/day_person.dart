@@ -76,7 +76,7 @@ class DayPerson {
     image: json["image"],
     inHour: json["in_hour"],
     outHour: json["out_hour"],
-    inClock: json["in_clock"],
+    inClock: json["in_clock"]==null?"": json["in_clock"],
     inLocation: json["in_location"],
     breakInClock: json["break_in_clock"],
     breakInLocation: json["break_in_location"],
@@ -90,6 +90,7 @@ class DayPerson {
     overTimeOutLocation: json["over_time_out_location"],
     dayPersonBreak: json["break"],
   );
+
 
   Map<String, dynamic> toMap() => {
     "date": date.toIso8601String(),
