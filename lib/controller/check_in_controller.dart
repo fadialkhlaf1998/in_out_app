@@ -19,7 +19,7 @@ class CheckInController extends GetxController{
 
   alwaysUpdateScreen()async{
     while(true){
-      await Future.delayed(Duration(milliseconds: 1000));
+      await Future.delayed(Duration(milliseconds: 3000));
       fake.value = !fake.value;
       try{
         if(!Store.sameDayReal()&&Global.state<3&&Global.employee!.date.isNotEmpty){
@@ -110,7 +110,7 @@ class CheckInController extends GetxController{
 
       if(location!=null){
         print('yes location');
-        bool succ = await Api.checkIn(state, "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}",dateTime);
+        bool succ = await Api.checkIn(state, "Error: No Location Auto Check out",dateTime);
         if(succ){
           Global.state = state;
           loading.value = false;
