@@ -106,40 +106,18 @@ class CheckInController extends GetxController{
     print('check in with date');
     if(Global.employee !=null){
       loading.value = true;
-      var location = await _determinePosition();
 
-      if(location!=null){
-        print('yes location');
-        bool succ = await Api.checkIn(state, "Error: No Location Auto Check out",dateTime);
-        if(succ){
-          Global.state = state;
-          loading.value = false;
-          // App.succMsg("Successfully", "Thanks For Using Our Service");
-          return true;
-        }else{
-          loading.value = false;
-          return await checkInWithDate(state,dateTime);
-          // App.errMsg("Failed", "Oops Please Try Again");
-        }
+      bool succ = await Api.checkIn(state, "Error: No Location Auto Check out",dateTime);
+      if(succ){
+        Global.state = state;
+        loading.value = false;
+        return true;
       }else{
-        print('no location');
-        print('yes location');
-        bool succ = await Api.checkIn(state, "Error: No Location Auto Check out",dateTime);
-        if(succ){
-          Global.state = state;
-          loading.value = false;
-          // App.succMsg("Successfully", "Thanks For Using Our Service");
-          return true;
-        }else{
-          loading.value = false;
-          return await checkInWithDate(state,dateTime);
-          // App.errMsg("Failed", "Oops Please Try Again");
-        }
-        // loading.value = false;
-        // return await checkInWithDate(state,dateTime);
+        loading.value = false;
+        return await checkInWithDate(state,dateTime);
       }
+
     }else{
-      print('Employee null');
       Get.offAll(()=>Login());
       return false;
     }
