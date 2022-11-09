@@ -20,7 +20,7 @@ class IntroController extends GetxController{
     getDate();
   }
   getDate()async{
-    await Future.delayed(Duration(milliseconds: 1200));
+    // await Future.delayed(Duration(milliseconds: 1200));
     LoginInfo? loginInfo = await Store.loadLoginInfo();
     await Store.loadDate();
     await Store.loadOverTime();
@@ -41,6 +41,8 @@ class IntroController extends GetxController{
           // var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);
           var out = DateTime(date.year,date.month,date.day,App.getHr(allOutHour),App.getMin(allOutHour),0);
           await checkInController.checkInWithDate(3, out);
+          getDate();
+          return;
         }
         print('----------HERE----------');
         Get.off(()=>CheckIn());

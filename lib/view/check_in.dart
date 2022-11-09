@@ -15,7 +15,9 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 class CheckIn extends StatelessWidget {
 
   CheckInController checkInController = Get.find();
-
+  CheckIn(){
+    checkInController.initial = true;
+  }
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([

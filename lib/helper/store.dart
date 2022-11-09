@@ -101,7 +101,7 @@ class Store {
   static Future<OverTimeStore> loadOverTime()async{
     var prefs = await SharedPreferences.getInstance();
     String data = prefs.getString("OverTime")??"non";
-    print('data: '+data);
+    // print('data: '+data);
     if(data == "non"){
       return Global.overTimeStore;
     }else{
@@ -113,12 +113,12 @@ class Store {
     DateTime today = DateTime.now();
     DateTime yesterday = DateTime.now().subtract(Duration(days: 1));
 
-    print("Hours now : "+DateTime.now().hour.toString());
-    print("Today : "+today.toString());
-    print("Yesterday : "+yesterday.toString());
-    print("day : "+Global.myDate.day.toString());
-    print("month : "+Global.myDate.month.toString());
-    print("year : "+Global.myDate.year.toString());
+    // print("Hours now : "+DateTime.now().hour.toString());
+    // print("Today : "+today.toString());
+    // print("Yesterday : "+yesterday.toString());
+    // print("day : "+Global.myDate.day.toString());
+    // print("month : "+Global.myDate.month.toString());
+    // print("year : "+Global.myDate.year.toString());
     if (
     Global.myDate.day == today.day &&
         Global.myDate.month == today.month &&

@@ -13,6 +13,7 @@ class CheckInController extends GetxController{
   var afterLoading = false.obs;
   var fake = false.obs;
   var bottomSheetOpened = false.obs;
+  bool initial = false;
 
   List<DayPerson> persons = <DayPerson>[];
   var bottomSheetLoading = false.obs;
@@ -22,13 +23,16 @@ class CheckInController extends GetxController{
       await Future.delayed(Duration(milliseconds: 3000));
       fake.value = !fake.value;
       try{
-        if(!Store.sameDayReal()&&Global.state<3&&Global.employee!.date.isNotEmpty){
-          print('*********************************');
-          var date =DateTime.parse(Global.employee!.date);
-          String allOutHour = "23:59";
-          // var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);
-          var out = DateTime(date.year,date.month,date.day,App.getHr(allOutHour),App.getMin(allOutHour),0);
-          await checkInWithDate(3, out);
+
+        if(initial){
+          if(!Store.sameDayReal()&&Global.state<3&&Global.employee!.date.isNotEmpty){
+            print('*********************************');
+            var date =DateTime.parse(Global.employee!.date);
+            String allOutHour = "23:59";
+            // var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);
+            var out = DateTime(date.year,date.month,date.day,App.getHr(allOutHour),App.getMin(allOutHour),0);
+            await checkInWithDate(3, out);
+          }
         }
       }catch(e){
 
