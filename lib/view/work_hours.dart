@@ -208,7 +208,9 @@ class WorkHours extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    inOutTable(workHoursController.optionNumber.value),
+                    Expanded(child: SingleChildScrollView(
+                      child: inOutTable(workHoursController.optionNumber.value),
+                    ))
                   ],
                 ),
                 workHoursController.loading.value
