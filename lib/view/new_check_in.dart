@@ -151,8 +151,9 @@ class CheckIn extends StatelessWidget {
                                           maxLines: 100,
                                           decoration: InputDecoration(
                                             label:Container(
-                                              width: 86,
+                                              width: 105,
                                               child:  Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                   Text("Note ",style: TextStyle(color: Colors.white,fontSize: 14),),
                                                   Text("(optional)",style: TextStyle(color: Colors.white,fontSize: 12),)
