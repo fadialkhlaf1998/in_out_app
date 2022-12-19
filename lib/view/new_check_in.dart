@@ -16,9 +16,14 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 class CheckIn extends StatelessWidget {
 
   CheckInController checkInController = Get.find();
+
+
+
   CheckIn(){
     checkInController.initial = true;
   }
+  FocusNode focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -46,74 +51,74 @@ class CheckIn extends StatelessWidget {
                       child: Stack(
                         children: [
                           checkInController.fake.value?Center():Center(),
-
-
-                          Container(
-
+                          GestureDetector(
+                            onTap: (){
+                              focusNode.unfocus();
+                            },
                             child: Container(
-                              width: Get.width,
-                              height: Get.height,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: Container(
-                                      width: Get.width,
-                                      height: 60,
-                                      child: Center(
+
+                              child: Container(
+                                width: Get.width,
+                                height: Get.height,
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10),
                                         child: Container(
-                                          width: Get.width*0.95,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-
-                                              Row(
-
+                                          width: Get.width,
+                                          height: 60,
+                                          child: Center(
+                                            child: Container(
+                                              width: Get.width*0.95,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Container(
-                                                    width: 40,
-                                                    height: 40,
-                                                    color: Colors.transparent,
+
+                                                  Row(
+
+                                                    children: [
+                                                      Container(
+                                                        width: 40,
+                                                        height: 40,
+                                                        color: Colors.transparent,
+                                                      ),
+                                                      SizedBox(width: 10,),
+                                                      Icon(Icons.arrow_forward_ios,color: Colors.transparent,)
+                                                    ],
                                                   ),
-                                                  SizedBox(width: 10,),
-                                                  Icon(Icons.arrow_forward_ios,color: Colors.transparent,)
+
+                                                  GestureDetector(
+                                                    onTap: (){
+                                                      Get.to(()=>Profile());
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+                                                          width: 40,
+                                                          height: 40,
+                                                          decoration: BoxDecoration(
+                                                              image: DecorationImage(
+                                                                  fit: BoxFit.cover,
+                                                                  image: NetworkImage(Api.url + 'uploads/' + Global.employee!.image)
+                                                              ),
+                                                              shape: BoxShape.circle,
+                                                              border: Border.all(color: App.primary)
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 5,),
+                                                        Icon(Icons.arrow_forward_ios,color: Colors.white,)
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
-
-                                              GestureDetector(
-                                                onTap: (){
-                                                  Get.to(()=>Profile());
-                                                },
-                                                child: Row(
-                                                  children: [
-                                                    Container(
-                                                      width: 40,
-                                                      height: 40,
-                                                      decoration: BoxDecoration(
-                                                          image: DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image: NetworkImage(Api.url + 'uploads/' + Global.employee!.image)
-                                                          ),
-                                                          shape: BoxShape.circle,
-                                                          border: Border.all(color: App.primary)
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 5,),
-                                                    Icon(Icons.arrow_forward_ios,color: Colors.white,)
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                  ),
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
+                                            ),
+                                          )
+                                      ),
+                                      ),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -124,28 +129,60 @@ class CheckIn extends StatelessWidget {
                                             child: Center(
                                               child: SvgPicture.network(Global.employee!.company_image),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
 
+                                      SizedBox(height: 30,),
+                                      statesView(context),
+                                      SizedBox(height: 30,),
+                                      Container(
+                                        width: Get.width * 0.7,
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                          color: App.navyBlue,
+                                          borderRadius: BorderRadius.circular(10)
+                                        ),
+                                        child: TextField(
+                                          focusNode: focusNode,
+                                          controller: checkInController.note,
+                                          keyboardType: TextInputType.multiline,
+                                          style: TextStyle(color: Colors.white,fontSize: 13),
+                                          maxLines: 100,
+                                          decoration: InputDecoration(
+                                            label:Container(
+                                              width: 86,
+                                              child:  Row(
+                                                children: [
+                                                  Text("Note ",style: TextStyle(color: Colors.white,fontSize: 14),),
+                                                  Text("(optional)",style: TextStyle(color: Colors.white,fontSize: 12),)
+                                                ],
+                                              ),
+                                            ),
+                                            alignLabelWithHint: true,
+                                            enabled: true,
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(10),
+                                              borderSide: BorderSide(color: Colors.transparent)
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10),
+                                                borderSide: BorderSide(color: Colors.transparent)
+                                            ),
+                                            // focusedBorder:  OutlineInputBorder(
+                                            //     borderRadius: BorderRadius.circular(10),
+                                            //     borderSide: BorderSide(color: Colors.white)
+                                            // ),
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
-                                  Spacer()
-                                ],
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            child: Center(
-                              child: Container(
-                                width: Get.width,
-                                child: Padding(
-                                  padding: EdgeInsets.only(top: 150,bottom: 10),
-                                  child: statesView(context),
                                 ),
                               ),
                             ),
                           ),
+
                           AnimatedSwitcher(
                             duration: const Duration(milliseconds: 300),
                             child: checkInController.loading.value||checkInController.afterLoading.value

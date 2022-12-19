@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:in_out_app/helper/api.dart';
 import 'package:geolocator/geolocator.dart';
@@ -14,6 +15,7 @@ class CheckInController extends GetxController{
   var fake = false.obs;
   var bottomSheetOpened = false.obs;
   bool initial = false;
+  TextEditingController note = TextEditingController();
 
   List<DayPerson> persons = <DayPerson>[];
   var bottomSheetLoading = false.obs;
@@ -47,8 +49,9 @@ class CheckInController extends GetxController{
       loading.value = true;
       if(location!=null){
 
-        bool succ = await Api.newCheckIn("https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}");
+        bool succ = await Api.newCheckIn("https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}",note.text);
         if(succ){
+          note.clear();
           await Api.login( Global.employee!.username, Global.employee!.password);
           afterLoading.value = true;
           loading.value = false;

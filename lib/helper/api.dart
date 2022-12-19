@@ -215,7 +215,7 @@ class Api {
 
   }
 
-  static Future<bool> newCheckIn(String location)async{
+  static Future<bool> newCheckIn(String location,String note)async{
     var headers = {
       'Authorization': 'Bearer '+token,
       'Content-Type': 'application/json'
@@ -224,6 +224,7 @@ class Api {
     request.body = json.encode({
       "employee_id": Global.employee!.id,
       "company_id": Global.employee!.companyId,
+      "note":note,
       "location": location
     });
     request.headers.addAll(headers);
