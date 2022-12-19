@@ -7,6 +7,8 @@ import 'package:in_out_app/helper/global.dart';
 import 'package:in_out_app/helper/store.dart';
 import 'package:in_out_app/model/day_person.dart';
 import 'package:in_out_app/model/employee.dart';
+import 'package:in_out_app/model/new_check_in.dart';
+import 'package:in_out_app/model/new_checkin_details.dart';
 import 'package:in_out_app/model/workHours.dart';
 
 class Api {
@@ -35,7 +37,8 @@ class Api {
       token = temp.employee.token;
       Global.employee = temp.employee;
       Global.myDate = temp.employee.getMyDate();
-      Global.state = temp.employee.state;
+      // Global.state = temp.employee.state;
+      Global.state = temp.employee.new_state;
       Store.saveLoginInfo(username, password);
       return temp.employee;
     }
@@ -208,6 +211,55 @@ class Api {
     else {
       print(response.reasonPhrase);
       return false;
+    }
+
+  }
+
+  static Future<bool> newCheckIn(String location)async{
+    var headers = {
+      'Authorization': 'Bearer '+token,
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse(url+'api/V2/check-in'));
+    request.body = json.encode({
+      "employee_id": Global.employee!.id,
+      "company_id": Global.employee!.companyId,
+      "location": location
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      return true;
+    }
+    else {
+    print(response.reasonPhrase);
+    return false;
+    }
+
+  }
+
+
+  static Future<NewCheckInDecoder> getEmployeeCheckinList(String month,String year)async{
+    var headers = {
+      'Authorization': 'Bearer '+token,
+      'Content-Type': 'application/json',
+    };
+    print(month);
+    var request = http.Request('GET', Uri.parse(url+'api/V2/check-in/mobile/${Global.employee!.id}/$month/$year'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      String data = (await response.stream.bytesToString());
+      return NewCheckInDecoder.fromJson(data);
+    }
+    else {
+      print(response.reasonPhrase);
+      return NewCheckInDecoder(newCheckin: <NewCheckin>[],newCheckinDetails: <NewCheckinDetail>[]);
     }
 
   }

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:in_out_app/controller/check_in_controller.dart';
+import 'package:in_out_app/controller/new_check_in_controller.dart';
 import 'package:in_out_app/helper/api.dart';
 import 'package:in_out_app/helper/app.dart';
 import 'package:in_out_app/helper/global.dart';
@@ -8,6 +9,7 @@ import 'package:in_out_app/model/employee.dart';
 import 'package:in_out_app/model/login_info.dart';
 import 'package:in_out_app/view/check_in.dart';
 import 'package:in_out_app/view/login.dart';
+import 'package:in_out_app/view/new_check_in.dart';
 
 class IntroController extends GetxController{
 
@@ -30,20 +32,20 @@ class IntroController extends GetxController{
       if(emp!=null){
         // Global.myDate = emp.getMyDate();
         // Global.state = emp.state;
-        print(Global.state);
-        print(Global.myDate.day);
-        print(Store.sameDay());
-
-        if(!Store.sameDayReal()&&Global.state<3&&emp.date.isNotEmpty){
-          print('*********************************');
-          var date =DateTime.parse(emp.date);
-          String allOutHour = "23:59";
-          // var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);
-          var out = DateTime(date.year,date.month,date.day,App.getHr(allOutHour),App.getMin(allOutHour),0);
-          await checkInController.checkInWithDate(3, out);
-          getDate();
-          return;
-        }
+        // print(Global.state);
+        // print(Global.myDate.day);
+        // print(Store.sameDay());
+        //
+        // if(!Store.sameDayReal()&&Global.state<3&&emp.date.isNotEmpty){
+        //   print('*********************************');
+        //   var date =DateTime.parse(emp.date);
+        //   String allOutHour = "23:59";
+        //   // var out = DateTime(date.year,date.month,date.day,App.getHr(emp.out_hour),App.getMin(emp.out_hour),0);
+        //   var out = DateTime(date.year,date.month,date.day,App.getHr(allOutHour),App.getMin(allOutHour),0);
+        //   await checkInController.checkInWithDate(3, out);
+        //   getDate();
+        //   return;
+        // }
         print('----------HERE----------');
         Get.off(()=>CheckIn());
       }else{

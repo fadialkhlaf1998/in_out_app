@@ -8,6 +8,9 @@ import 'package:in_out_app/helper/global.dart';
 class WorkHours extends StatelessWidget {
 
   WorkHoursController workHoursController = Get.put(WorkHoursController());
+  WorkHours(){
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,9 +95,19 @@ class WorkHours extends StatelessWidget {
                             height: 70,
                             width: Get.width*0.9,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
                               children: [
+                                HeaderButton(
+                                  width: 100,
+                                  height: 30,
+                                  radius: 10,
+                                  onTap: (){
+                                    workHoursController.optionNumber.value = 0;
+                                  },
+                                  press: workHoursController.optionNumber.value == 0 ? true : false,
+                                  title: 'In/Out',
+                                ),
                                 HeaderButton(
                                   width: 100,
                                   height: 30,
@@ -103,28 +116,18 @@ class WorkHours extends StatelessWidget {
                                     workHoursController.optionNumber.value = 1;
                                   },
                                   press: workHoursController.optionNumber.value == 1 ? true : false,
-                                  title: 'In/Out',
+                                  title: 'Details',
                                 ),
-                                HeaderButton(
-                                  width: 100,
-                                  height: 30,
-                                  radius: 10,
-                                  onTap: (){
-                                    workHoursController.optionNumber.value = 2;
-                                  },
-                                  press: workHoursController.optionNumber.value == 2 ? true : false,
-                                  title: 'Break',
-                                ),
-                                HeaderButton(
-                                  width: 100,
-                                  height: 30,
-                                  radius: 10,
-                                  onTap: (){
-                                    workHoursController.optionNumber.value = 3;
-                                  },
-                                  press: workHoursController.optionNumber.value == 3 ? true : false,
-                                  title: 'Extra O. T.',
-                                ),
+                                // HeaderButton(
+                                //   width: 100,
+                                //   height: 30,
+                                //   radius: 10,
+                                //   onTap: (){
+                                //     workHoursController.optionNumber.value = 3;
+                                //   },
+                                //   press: workHoursController.optionNumber.value == 3 ? true : false,
+                                //   title: 'Extra O. T.',
+                                // ),
                               ],
                             ),
                           )
@@ -163,7 +166,7 @@ class WorkHours extends StatelessWidget {
                                 return DropdownMenuItem(
                                   value: items.toString(),
                                   child: Container(
-                                    width: 40,
+                                    width: 50,
                                     height: 15,
                                     child: Text(items.toString(),style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
                                   ),
@@ -232,7 +235,7 @@ class WorkHours extends StatelessWidget {
   }
 
   inOutTable(int option){
-    var columns = workHoursController.inOutColumns;
+    var columns = option == 0? workHoursController.inOutColumns: workHoursController.detailsColumns;
     return Column(
       children: [
         Container(
@@ -244,11 +247,11 @@ class WorkHours extends StatelessWidget {
               headingRowHeight: 40,
               border: TableBorder.all(color: Colors.white.withOpacity(0.3)),
               columns: workHoursController.getColumns(columns),
-              rows: workHoursController.getRows(workHoursController.hoursData,option,workHoursController.overTime),
+              rows: workHoursController.getRows(workHoursController.checkin,option,workHoursController.checkinDetails),
             ),
           ),
         ),
-        workHoursController.hoursData.isEmpty && workHoursController.loading.isFalse
+        workHoursController.checkin.isEmpty && workHoursController.loading.isFalse
             ? const Text(
               'No data',
               style: TextStyle(

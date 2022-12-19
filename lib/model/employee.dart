@@ -41,6 +41,8 @@ class Employee {
     required this.date,
     required this.company_image,
     required this.image,
+    required this.new_state,
+    required this.work_hours,
   });
 
   int id;
@@ -55,6 +57,8 @@ class Employee {
   String time;
   String date;
   int state;
+  int new_state;
+  double work_hours;
   String company_image;
 
   DateTime? getLastDateOp(){
@@ -105,6 +109,8 @@ class Employee {
     token: json["token"],
     in_hour: json["in_hour"],
     out_hour: json["out_hour"],
+    new_state: json["new_state"],
+    work_hours: double.parse(json["work_hours"].toString()),
     state: json["state"]==null?3:json["state"],
     company_image: json["company_image"]==null?"":json["company_image"],
     date:json["date"]==null?"" :json["date"],

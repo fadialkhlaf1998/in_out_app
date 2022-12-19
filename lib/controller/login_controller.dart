@@ -4,6 +4,7 @@ import 'package:in_out_app/helper/api.dart';
 import 'package:in_out_app/helper/app.dart';
 import 'package:in_out_app/model/employee.dart';
 import 'package:in_out_app/view/check_in.dart';
+import 'package:in_out_app/view/new_check_in.dart';
 
 class LoginController extends GetxController{
 

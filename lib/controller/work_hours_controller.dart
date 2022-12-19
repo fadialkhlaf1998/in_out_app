@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:in_out_app/helper/api.dart';
 import 'package:in_out_app/helper/app.dart';
+import 'package:in_out_app/model/new_check_in.dart';
+import 'package:in_out_app/model/new_checkin_details.dart';
 import 'package:in_out_app/model/workHours.dart';
 import 'package:intl/intl.dart';
 
@@ -12,8 +14,9 @@ class WorkHoursController extends GetxController{
 
 
   final inOutColumns = ['Date', 'In', 'Out'];
-  RxList<WorkHour> hoursData = <WorkHour>[].obs;
-  RxList<OverTime> overTime = <OverTime>[].obs;
+  final detailsColumns = ['Date', 'Work', 'OverTime','Total'];
+  RxList<NewCheckin> checkin = <NewCheckin>[].obs;
+  RxList<NewCheckinDetail> checkinDetails = <NewCheckinDetail>[].obs;
   var loading = false.obs;
   RxString selectedYear = DateTime.now().year.toString().obs;
   RxString selectedMonth = DateTime.now().month.toString().obs;
@@ -23,7 +26,7 @@ class WorkHoursController extends GetxController{
   RxBool inOutButton = true.obs;
   RxBool inOutBreakButton = false.obs;
   RxBool inOutOvertimeButton = false.obs;
-  RxInt optionNumber = 1.obs;
+  RxInt optionNumber = 0.obs;
 
 
   @override
@@ -34,16 +37,10 @@ class WorkHoursController extends GetxController{
 
   getData() async {
     loading.value = true;
-    await Api.getWorkHours(DateTime.now().year.toString(), DateTime.now().month.toString()).then((value){
+    await Api.getEmployeeCheckinList(DateTime.now().month.toString(), DateTime.now().year.toString()).then((value){
       loading.value = false;
-      if(value.msg != 'error'){
-        hoursData.clear();
-        hoursData.addAll(value.workHours);
-        overTime = value.overTime.obs;
-        print('overTimeLength'+ overTime.length.toString());
-      }else{
-        print('error');
-      }
+      checkin = value.newCheckin.obs;
+      checkinDetails = value.newCheckinDetails.obs;
     });
   }
 
@@ -58,20 +55,22 @@ class WorkHoursController extends GetxController{
       )
   )).toList();
 
-  List<DataRow> getRows(List<WorkHour> workHours, option,List<OverTime> overTime) =>
-      option == 3 ?
-      overTime.map((OverTime elm){
-        final cells =  [dateFormat(elm.date.toString()), elm.in_time, elm.out_time];
-
-        return DataRow(cells: getCells(cells),color: overTime.indexOf(elm) % 2 == 0 ? color1 : color2);
+  List<DataRow> getRows(List<NewCheckin> newcheckin, option,List<NewCheckinDetail> newcheckindetails) =>
+      option == 1 ?
+      newcheckindetails.map((NewCheckinDetail elm){
+        final cells =  [
+          elm.day.toString(),
+          elm.duration > elm.workHours ?elm.workHours.toStringAsFixed(2):elm.duration.toStringAsFixed(2),
+          elm.duration > elm.workHours ?(elm.duration - elm.workHours).toStringAsFixed(2):0,
+          elm.duration.toStringAsFixed(2)
+        ];
+        return DataRow(cells: getCells(cells),color: newcheckindetails.indexOf(elm) % 2 == 0 ? color1 : color2);
       }).toList()
 
-      :workHours.map((WorkHour workHour){
-    final cells = option == 1
-        ? [dateFormat(workHour.date.toString()), workHour.inClock, workHour.outClock]
-        : [dateFormat(workHour.date.toString()), workHour.breakInClock, workHour.breakOutClock];
+      :newcheckin.map((NewCheckin newCheckinelm){
+    final cells = [newCheckinelm.day.toString(), newCheckinelm.inTime, newCheckinelm.outTime];
 
-    return DataRow(cells: getCells(cells),color: workHours.indexOf(workHour) % 2 == 0 ? color1 : color2);
+    return DataRow(cells: getCells(cells),color: newcheckin.indexOf(newCheckinelm) % 2 == 0 ? color1 : color2);
   }).toList();
 
   MaterialStateProperty<Color?> color1 = MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
@@ -96,18 +95,14 @@ class WorkHoursController extends GetxController{
 
   applyFilter(String year, String month) async {
     loading.value = true;
-    await Api.getWorkHours(year, month).then((value){
+    await Api.getEmployeeCheckinList(month, year).then((value){
       loading.value = false;
-      if(value.msg != 'error'){
-        selectedMonthOldData.value = month;
-        selectedYearOldData.value = year;
-        hoursData.clear();
-        hoursData.addAll(value.workHours);
-        overTime = value.overTime.obs;
-        print('overTimeLength'+ overTime.length.toString());
-      }else{
-        print('error-------');
-      }
+      selectedMonthOldData.value = month;
+      selectedYearOldData.value = year;
+
+      checkin = value.newCheckin.obs;
+      checkinDetails = value.newCheckinDetails.obs;
+
     });
   }
 
