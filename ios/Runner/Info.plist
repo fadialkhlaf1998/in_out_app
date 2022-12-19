@@ -15,6 +15,9 @@
 
     <key>NSLocationAlwaysUsageDescription</key>
     <string>This app needs access to location when in the background.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>This app needs access to location when to know where you do check-in/check-out.</string>
+
     <key>NSLocationTemporaryUsageDescriptionDictionary</key>
     <dict>
       <key>YourPurposeKey</key>
