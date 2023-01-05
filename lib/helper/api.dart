@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:http/http.dart' as http;
 import 'package:in_out_app/helper/global.dart';
 import 'package:in_out_app/helper/store.dart';

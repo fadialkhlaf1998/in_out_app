@@ -42,7 +42,7 @@ class NewCheckinDetail {
 
   factory NewCheckinDetail.fromMap(Map<String, dynamic> json) => NewCheckinDetail(
     day: json["day"],
-    duration: json["duration"].toDouble(),
+    duration: json["duration"]==null?0:json["duration"].toDouble(),
     workHours: json["work_hours"].toDouble(),
   );
 

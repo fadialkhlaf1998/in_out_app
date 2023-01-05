@@ -33,14 +33,9 @@ class WorkHours extends StatelessWidget {
                   children: [
                     Container(
                       width: Get.width,
-                      height: 120,
-                      // decoration: BoxDecoration(
-                      //   color: Colors.white.withOpacity(0.3),
-                      //   borderRadius: const BorderRadius.only(
-                      //     bottomLeft: Radius.circular(30),
-                      //     bottomRight: Radius.circular(30),
-                      //   )
-                      // ),
+                      // height: 120,
+                      height: 50,
+
                       child: Column(
                         children: [
                           SizedBox(height: 20,),
@@ -91,59 +86,51 @@ class WorkHours extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
-                            height: 70,
-                            width: Get.width*0.9,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                              children: [
-                                HeaderButton(
-                                  width: 100,
-                                  height: 30,
-                                  radius: 10,
-                                  onTap: (){
-                                    workHoursController.optionNumber.value = 0;
-                                  },
-                                  press: workHoursController.optionNumber.value == 0 ? true : false,
-                                  title: 'In/Out',
-                                ),
-                                HeaderButton(
-                                  width: 100,
-                                  height: 30,
-                                  radius: 10,
-                                  onTap: (){
-                                    workHoursController.optionNumber.value = 1;
-                                  },
-                                  press: workHoursController.optionNumber.value == 1 ? true : false,
-                                  title: 'Details',
-                                ),
-                                // HeaderButton(
-                                //   width: 100,
-                                //   height: 30,
-                                //   radius: 10,
-                                //   onTap: (){
-                                //     workHoursController.optionNumber.value = 3;
-                                //   },
-                                //   press: workHoursController.optionNumber.value == 3 ? true : false,
-                                //   title: 'Extra O. T.',
-                                // ),
-                              ],
-                            ),
-                          )
+                          // Container(
+                          //   height: 70,
+                          //   width: Get.width*0.9,
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //
+                          //     children: [
+                          //       HeaderButton(
+                          //         width: 100,
+                          //         height: 30,
+                          //         radius: 10,
+                          //         onTap: (){
+                          //           workHoursController.optionNumber.value = 0;
+                          //         },
+                          //         press: workHoursController.optionNumber.value == 0 ? true : false,
+                          //         title: 'In/Out',
+                          //       ),
+                          //       HeaderButton(
+                          //         width: 100,
+                          //         height: 30,
+                          //         radius: 10,
+                          //         onTap: (){
+                          //           workHoursController.optionNumber.value = 1;
+                          //         },
+                          //         press: workHoursController.optionNumber.value == 1 ? true : false,
+                          //         title: 'Details',
+                          //       ),
+                          //       // HeaderButton(
+                          //       //   width: 100,
+                          //       //   height: 30,
+                          //       //   radius: 10,
+                          //       //   onTap: (){
+                          //       //     workHoursController.optionNumber.value = 3;
+                          //       //   },
+                          //       //   press: workHoursController.optionNumber.value == 3 ? true : false,
+                          //       //   title: 'Extra O. T.',
+                          //       // ),
+                          //     ],
+                          //   ),
+                          // )
                         ],
                       ),
                     ),
                     const SizedBox(height: 20),
-                    // GestureDetector(
-                    //   onTap: (){
-                    //     Get.back();
-                    //   },
-                    //   child: Container(
-                    //     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    //     child: const Icon(Icons.arrow_back_ios_new,color: Colors.white,size: 22),
-                    //   ),
-                    // ),
+
                     Container(
                       height: 50,
                       child: Row(
