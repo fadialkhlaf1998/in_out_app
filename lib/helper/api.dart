@@ -11,7 +11,8 @@ import 'package:in_out_app/model/new_checkin_details.dart';
 import 'package:in_out_app/model/workHours.dart';
 
 class Api {
-  static String url = "https://phpstack-548447-2849982.cloudwaysapps.com/";
+  // static String url = "https://phpstack-548447-2849982.cloudwaysapps.com/";
+  static String url = "http://ec2-35-77-99-214.ap-northeast-1.compute.amazonaws.com:3000/";
   // static String url = "http://10.0.2.2:3000";
   static String token="";
 
@@ -20,7 +21,7 @@ class Api {
       'Content-Type': 'application/json',
     };
     print('start login **************');
-    var request = http.Request('POST', Uri.parse(url+'/api/employee/login'));
+    var request = http.Request('POST', Uri.parse(url+'api/employee/login'));
     request.body = json.encode({
       "username": username,
       "password": password
@@ -53,7 +54,7 @@ class Api {
       'Content-Type': 'application/json',
     };
     print('start check in');
-    var request = http.Request('POST', Uri.parse(url+'/api/check-in'));
+    var request = http.Request('POST', Uri.parse(url+'api/check-in'));
     request.body = json.encode({
       "employee_id": Global.employee!.id,
       "company_id": Global.employee!.companyId,
@@ -84,7 +85,7 @@ class Api {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer '+token,
     };
-    var request = http.Request('POST', Uri.parse(url+'/api/check-in/app-list'));
+    var request = http.Request('POST', Uri.parse(url+'api/check-in/app-list'));
     DateTime today = DateTime.now();
     DateTime yesterday = DateTime.now().subtract(Duration(days: 1));
     DateTime date = DateTime.now().hour < 8?yesterday:today;
