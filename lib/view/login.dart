@@ -20,50 +20,48 @@ class Login extends StatelessWidget {
     return Scaffold(
       backgroundColor: App.navyBlue,
       body: SafeArea(
-        child: SingleChildScrollView(
-          // physics: NeverScrollableScrollPhysics(),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height - (MediaQuery.of(context).padding.bottom + MediaQuery.of(context).padding.top),
-            color: Colors.blue,
-            child: Stack(
-              children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      decoration:const  BoxDecoration(
-                        color: Colors.white,
-                          image: DecorationImage(
-                              image: AssetImage("assets/new_icons/background.jpg"),
-                              fit: BoxFit.cover
-                          )
-                      ),
-                    ),
 
-                  ],
-                ),
-                Positioned(
-                  bottom: 0,
-                  child: Container(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height - (MediaQuery.of(context).padding.bottom + MediaQuery.of(context).padding.top),
+          color: Colors.blue,
+          child: Stack(
+            children: [
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height - 80,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50)
-                      ),
-
+                    height: MediaQuery.of(context).size.height,
+                    decoration:const  BoxDecoration(
+                      color: Colors.white,
+                        image: DecorationImage(
+                            image: AssetImage("assets/new_icons/background.jpg"),
+                            fit: BoxFit.cover
+                        )
                     ),
-                    child: Obx(() => loginController.loading.value ?
-                      App.Loading() :
-                      _body(context)
-                    )
                   ),
-                )
-              ],
-            ),
+
+                ],
+              ),
+              Positioned(
+                bottom: 0,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height ,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(50)
+                    ),
+
+                  ),
+                  child: Obx(() => loginController.loading.value ?
+                    App.Loading() :
+                    _body(context)
+                  )
+                ),
+              )
+            ],
           ),
         )
       ),
@@ -74,10 +72,10 @@ class Login extends StatelessWidget {
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        // height: MediaQuery.of(context).size.height ,
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
           child: Column(
+
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
              // const SizedBox(height: 1,),

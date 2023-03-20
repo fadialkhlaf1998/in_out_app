@@ -12,7 +12,8 @@ import 'package:in_out_app/model/workHours.dart';
 
 class Api {
   // static String url = "https://phpstack-548447-2849982.cloudwaysapps.com/";
-  static String url = "http://ec2-35-77-99-214.ap-northeast-1.compute.amazonaws.com:3000/";
+  // static String url = "http://ec2-35-77-99-214.ap-northeast-1.compute.amazonaws.com:3000/";
+  static String url = "http://35.73.198.186:3000/";
   // static String url = "http://10.0.2.2:3000";
   static String token="";
 
