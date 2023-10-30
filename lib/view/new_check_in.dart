@@ -10,7 +10,7 @@ import 'package:in_out_app/helper/app.dart';
 import 'package:in_out_app/helper/global.dart';
 import 'package:in_out_app/helper/store.dart';
 import 'package:in_out_app/view/profile.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+// import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class CheckIn extends StatelessWidget {
